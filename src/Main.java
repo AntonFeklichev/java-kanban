@@ -10,11 +10,40 @@ public class Main {
 
         TaskManager manager = Managers.getDefault();
 
-        System.out.println("Task methods testing:");
         Task homeworkTask = new Task("do homework", "do math", Status.NEW);
         Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);
         manager.addTask(homeworkTask);
         manager.addTask(carbonaraTask);
+        Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
+        Epic workEpic = new Epic("find clients", "", Status.NEW);
+        manager.addEpic(docEpic);
+        manager.addEpic(workEpic);
+        Subtask docTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.NEW, docEpic);
+        Subtask docTask2 = new Subtask("go to dermatologist", "get a dermatologist consultation", Status.NEW, docEpic);
+        Subtask workTask1 = new Subtask("find clients", "use profi.ru", Status.NEW, workEpic);
+        manager.addSubtask(docTask1);
+        manager.addSubtask(docTask2);
+        manager.addSubtask(workTask1);
+
+
+        System.out.println("History testing:");
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
+
+        System.out.println(manager.getEpicById(1));
+        System.out.println(manager.getSubtaskById(2));
+        for (int i = 0; i < 8; i++) {
+            System.out.println(manager.getTaskById(2));
+        }
+        System.out.println(manager.getEpicById(2));
+        System.out.println("history: ");
+        System.out.println(manager.getHistory());
+        System.out.println("number of tasks in history");System.out.println(manager.getHistory().size());
+        System.out.println("----------------------------------");
+
+
+        System.out.println("Task methods testing:");
         System.out.println(manager.getTasks());
         Task updatedHomeworkTask = new Task("do homework", "do math", Status.IN_PROGRESS, homeworkTask.getId());
         manager.updateTask(updatedHomeworkTask);
@@ -27,19 +56,9 @@ public class Main {
         manager.removeAllTasks();
         System.out.println(manager.getTasks());
         System.out.println("----------------------------------");
+
+
         System.out.println("Epic methods testing:");
-
-        Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
-        Epic workEpic = new Epic("find clients", "", Status.NEW);
-
-        manager.addEpic(docEpic);
-        manager.addEpic(workEpic);
-        Subtask docTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.NEW, docEpic);
-        manager.addSubtask(docTask1);
-        Subtask docTask2 = new Subtask("go to dermatologist", "get a dermatologist consultation", Status.NEW, docEpic);
-        manager.addSubtask(docTask2);
-        Subtask workTask1 = new Subtask("find clients", "use profi.ru", Status.NEW, workEpic);
-        manager.addSubtask(workTask1);
         System.out.println(manager.getEpics());
         Subtask updatedDocTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.IN_PROGRESS, docEpic, docTask1.getId());
         manager.updateSubtask(updatedDocTask1);
@@ -66,24 +85,6 @@ public class Main {
         System.out.println(manager.getTasks());
         System.out.println(manager.getEpics());
         System.out.println(manager.getSubtasks());
-        System.out.println("----------------------------------");
-
-        System.out.println("History testing:");
-        manager.addEpic(docEpic);
-        manager.addEpic(workEpic);
-        manager.addSubtask(docTask1);
-        manager.addSubtask(docTask2);
-        manager.addSubtask(workTask1);
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-        System.out.println(manager.getEpicById(1));
-        System.out.println(manager.getSubtaskById(2));
-        for (int i = 0; i < 9; i++) {
-            System.out.println(manager.getTaskById(1));
-        }
-        System.out.println(manager.getHistory());
-        System.out.println(manager.getHistory().size());
     }
 
 }
