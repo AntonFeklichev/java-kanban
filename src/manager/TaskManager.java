@@ -1,7 +1,6 @@
 package manager;
 
 import tasks.Epic;
-import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
@@ -49,9 +48,6 @@ public interface TaskManager {
 
     void removeSubtaskById(int subtaskId);
 
-    ArrayList<Subtask> getSubtasksOfEpic(Epic epic);
-
-    Status calculateStatus(Epic epic);
-
+    List<Subtask> getSubtasksOfEpic(Epic epic);
     List<Task> getHistory();
 }
