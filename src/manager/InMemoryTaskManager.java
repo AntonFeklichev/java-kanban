@@ -12,9 +12,11 @@ public class InMemoryTaskManager implements TaskManager{
     private int idForNewTasks = 1;
     private int idForNewSubtasks = 1;
     private int idForNewEpics = 1;
-    public HashMap<Integer, Task> tasks = new HashMap<>();
-    public HashMap<Integer, Epic> epics = new HashMap<>();
-    public HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private HashMap<Integer, Task> tasks = new HashMap<>();
+    private HashMap<Integer, Epic> epics = new HashMap<>();
+    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+
+    private ArrayList<Task> history = new ArrayList<>();
 
     @Override
     public HashMap<Integer, Task> getTasks() {
@@ -48,16 +50,19 @@ public class InMemoryTaskManager implements TaskManager{
 
     @Override
     public Task getTaskById(int id) {
+        history.add(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
     public Subtask getSubtaskById(int id) {
+        history.add(subtasks.get((id)));
         return subtasks.get(id);
     }
 
     @Override
     public Epic getEpicById(int id) {
+        history.add(epics.get(id));
         return epics.get(id);
     }
 
@@ -173,5 +178,10 @@ public class InMemoryTaskManager implements TaskManager{
         else if (doneCounter == epic.getSubtasks().size()) return Status.DONE;
         else if (inProgressCounter > 0 || doneCounter > 0) return Status.IN_PROGRESS;
         return epic.getStatus();
+    }
+
+    @Override
+    public ArrayList<Task> getHistory(){
+        return history;
     }
 }
