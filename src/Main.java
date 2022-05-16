@@ -9,24 +9,24 @@ public class Main {
 
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
-        System.out.println("Task methods testing:");
+//        System.out.println("Task methods testing:");
         Task homeworkTask = new Task("do homework", "do math", Status.NEW);
         Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);
         manager.addTask(homeworkTask);
         manager.addTask(carbonaraTask);
-        System.out.println(manager.getTasks());
-        Task updatedHomeworkTask = new Task("do homework", "do math", Status.IN_PROGRESS, homeworkTask.getId());
-        manager.updateTask(updatedHomeworkTask);
-        Task updatedCarbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.DONE, carbonaraTask.getId());
-        manager.updateTask(updatedCarbonaraTask);
-        System.out.println(manager.getTasks());
-        manager.removeTaskById(updatedCarbonaraTask.getId());
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getTaskById(1));
-        manager.removeAllTasks();
-        System.out.println(manager.getTasks());
-        System.out.println("----------------------------------");
-        System.out.println("Epic methods testing:");
+//        System.out.println(manager.getTasks());
+//        Task updatedHomeworkTask = new Task("do homework", "do math", Status.IN_PROGRESS, homeworkTask.getId());
+//        manager.updateTask(updatedHomeworkTask);
+//        Task updatedCarbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.DONE, carbonaraTask.getId());
+//        manager.updateTask(updatedCarbonaraTask);
+//        System.out.println(manager.getTasks());
+//        manager.removeTaskById(updatedCarbonaraTask.getId());
+//        System.out.println(manager.getTasks());
+//        System.out.println(manager.getTaskById(1));
+//        manager.removeAllTasks();
+//        System.out.println(manager.getTasks());
+//        System.out.println("----------------------------------");
+//        System.out.println("Epic methods testing:");
 
         Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
         Epic workEpic = new Epic("find clients", "", Status.NEW);
@@ -39,33 +39,42 @@ public class Main {
         manager.addSubtask(docTask2);
         Subtask workTask1 = new Subtask("find clients", "use profi.ru", Status.NEW, workEpic);
         manager.addSubtask(workTask1);
-        System.out.println(manager.getEpics());
+//        System.out.println(manager.getEpics());
         Subtask updatedDocTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.IN_PROGRESS, docEpic, docTask1.getId());
-        manager.updateSubtask(updatedDocTask1);
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-        System.out.println(manager.getSubtaskById(1));
+//        manager.updateSubtask(updatedDocTask1);
+//        System.out.println(manager.getEpics());
+//        System.out.println(manager.getSubtasks());
+//        System.out.println(manager.getSubtaskById(1));
         Subtask updatedWorkTask1 = new Subtask("find clients", "use profi.ru", Status.DONE, workEpic, workTask1.getId());
         manager.updateSubtask(updatedWorkTask1);
-        System.out.println(manager.getEpicById(2));
-        System.out.println("----------------------------------");
-        System.out.println("Subtask methods testing:");
+//        System.out.println(manager.getEpicById(2));
+//        System.out.println("----------------------------------");
+//        System.out.println("Subtask methods testing:");
         Epic updatedWorkEpic = new Epic("find clients", "hahaha", Status.NEW, workEpic.getId());
         manager.updateEpic(updatedWorkEpic);
-        System.out.println(manager.getEpicById(2));
-        manager.removeEpicById(2);
-        System.out.println(manager.getSubtasks());
-        manager.removeSubtaskById(docTask1.getId());
+//        System.out.println(manager.getEpicById(2));
+//        manager.removeEpicById(2);
+//        System.out.println(manager.getSubtasks());
+//        manager.removeSubtaskById(docTask1.getId());
+//        System.out.println(manager.getEpics());
+//        System.out.println(manager.getSubtasks());
+//        System.out.println(manager.getSubtasksOfEpic(docEpic));
+//        manager.removeAllSubtasks();
+//        manager.removeAllEpics();
+//        manager.removeAllTasks();
+//        System.out.println(manager.getTasks());
+//        System.out.println(manager.getEpics());
+//        System.out.println(manager.getSubtasks());
         System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-        System.out.println(manager.getSubtasksOfEpic(docEpic));
-        manager.removeAllSubtasks();
-        manager.removeAllEpics();
-        manager.removeAllTasks();
         System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
         System.out.println(manager.getSubtasks());
+        manager.getEpicById(1);
+        manager.getSubtaskById(2);
+        for (int i = 0; i < 7; i++) {
+            System.out.println(manager.getTaskById(1));
+        }
         System.out.println(manager.getHistory());
+        System.out.println(manager.getHistory().size());
     }
 
 }
