@@ -1,15 +1,13 @@
-import manager.Manager;
+import manager.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
 
-        Manager manager = new Manager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         System.out.println("Task methods testing:");
         Task homeworkTask = new Task("do homework", "do math", Status.NEW);
