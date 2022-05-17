@@ -31,17 +31,16 @@ public class Main {
         System.out.println(manager.getEpics());
         System.out.println(manager.getSubtasks());
 
-        System.out.println(manager.getEpicById(1));
-        System.out.println(manager.getSubtaskById(2));
-        for (int i = 0; i < 8; i++) {
-            System.out.println(manager.getTaskById(2));
+        System.out.println(manager.getEpicById(4));
+        System.out.println(manager.getSubtaskById(5));
+        for (int i = 0; i < 7; i++) {
+            System.out.println(manager.getTaskById(1));
         }
-        System.out.println(manager.getEpicById(2));
+        System.out.println(manager.getEpicById(3));
         System.out.println("history: ");
         System.out.println(manager.getHistory());
         System.out.println("number of tasks in history");System.out.println(manager.getHistory().size());
         System.out.println("----------------------------------");
-
 
         System.out.println("Task methods testing:");
         System.out.println(manager.getTasks());
@@ -64,16 +63,18 @@ public class Main {
         manager.updateSubtask(updatedDocTask1);
         System.out.println(manager.getEpics());
         System.out.println(manager.getSubtasks());
-        System.out.println(manager.getSubtaskById(1));
+        System.out.println(manager.getSubtaskById(7));
         Subtask updatedWorkTask1 = new Subtask("find clients", "use profi.ru", Status.DONE, workEpic, workTask1.getId());
         manager.updateSubtask(updatedWorkTask1);
-        System.out.println(manager.getEpicById(2));
+        System.out.println(manager.getEpicById(4));
         System.out.println("----------------------------------");
+
+
         System.out.println("Subtask methods testing:");
         Epic updatedWorkEpic = new Epic("find clients", "hahaha", Status.NEW, workEpic.getId());
         manager.updateEpic(updatedWorkEpic);
         System.out.println(manager.getEpicById(2));
-        manager.removeEpicById(2);
+        manager.removeEpicById(4);
         System.out.println(manager.getSubtasks());
         manager.removeSubtaskById(docTask1.getId());
         System.out.println(manager.getEpics());

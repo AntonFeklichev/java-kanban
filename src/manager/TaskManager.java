@@ -4,17 +4,16 @@ import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public interface TaskManager {
-    HashMap<Integer, Task> getTasks();
+    Map<Integer, Task> getTasks();
 
-    HashMap<Integer, Epic> getEpics();
+    Map<Integer, Epic> getEpics();
 
-    HashMap<Integer, Subtask> getSubtasks();
+    Map<Integer, Subtask> getSubtasks();
 
     Task getTaskById(int id);
 
