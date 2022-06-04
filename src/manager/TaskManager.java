@@ -48,5 +48,6 @@ public interface TaskManager {
     void removeSubtaskById(int subtaskId);
 
     List<Subtask> getSubtasksOfEpic(Epic epic);
+
     List<Task> getHistory();
 }

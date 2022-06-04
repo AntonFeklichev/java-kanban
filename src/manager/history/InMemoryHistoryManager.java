@@ -2,10 +2,7 @@ package manager.history;
 
 import tasks.Task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private CustomLinkedList<Task> history = new CustomLinkedList<>();
@@ -40,56 +37,52 @@ public class InMemoryHistoryManager implements HistoryManager {
         private Node<E> tail;
         private int size = 0;
 
-        public void linkLast(E e) {
-            final Node<E> l = tail;
-            final Node<E> newNode = new Node<>(l, e, null);
+        public void linkLast(E newElement) {
+            final Node<E> oldTail = tail;
+            final Node<E> newNode = new Node<>(oldTail, newElement, null);
             tail = newNode;
-            if (l == null)
+            if (oldTail == null)
                 head = newNode;
             else
-                l.next = newNode;
+                oldTail.setNext(newNode);
             size++;
-        }
-
-        public int size() {
-            return this.size;
         }
 
         public List<E> getElements() {
             List<E> elements = new ArrayList<>(size);
             Node<E> currentNode = head;
             if (currentNode == null) {
-                System.out.println("Linked list is empty");
-                return null;
+                return Collections.emptyList();
             } else {
                 while (currentNode != null) {
-                    elements.add(currentNode.data);
-                    currentNode = currentNode.next;
+                    elements.add(currentNode.getData());
+                    currentNode = currentNode.getNext();
                 }
             }
             return elements;
         }
 
-        public void removeNode(Node<E> x) {
-            if (x != null) {
-                final Node<E> next = x.next;
-                final Node<E> prev = x.prev;
+        public void removeNode(Node<E> nodeToRemove) {
+            if (nodeToRemove != null) {
+                final Node<E> next = nodeToRemove.getNext();
+                final Node<E> prev = nodeToRemove.getPrev();
+
+                nodeToRemove.setPrev(null);
+                nodeToRemove.setNext(null);
+                nodeToRemove.setData(null);
 
                 if (prev == null) {
                     head = next;
                 } else {
-                    prev.next = next;
-                    x.prev = null;
+                    prev.setNext(next);
                 }
 
                 if (next == null) {
                     tail = prev;
                 } else {
-                    next.prev = prev;
-                    x.next = null;
+                    next.setPrev(prev);
                 }
 
-                x.data = null;
                 size--;
             }
         }
