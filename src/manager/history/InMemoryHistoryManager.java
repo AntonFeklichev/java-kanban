@@ -2,7 +2,10 @@ package manager.history;
 
 import tasks.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private CustomLinkedList<Task> history = new CustomLinkedList<>();
@@ -15,7 +18,7 @@ public class InMemoryHistoryManager implements HistoryManager {
                 remove(task.getId());
             }
             history.linkLast(task);
-            nodesMap.put(task.getId(), history.getTail());
+            nodesMap.put(task.getId(), history.tail);
         }
     }
 
@@ -41,23 +44,17 @@ public class InMemoryHistoryManager implements HistoryManager {
             final Node<E> oldTail = tail;
             final Node<E> newNode = new Node<>(oldTail, newElement, null);
             tail = newNode;
-            if (oldTail == null)
-                head = newNode;
-            else
-                oldTail.setNext(newNode);
+            if (oldTail == null) head = newNode;
+            else oldTail.setNext(newNode);
             size++;
         }
 
         public List<E> getElements() {
             List<E> elements = new ArrayList<>(size);
             Node<E> currentNode = head;
-            if (currentNode == null) {
-                return Collections.emptyList();
-            } else {
-                while (currentNode != null) {
-                    elements.add(currentNode.getData());
-                    currentNode = currentNode.getNext();
-                }
+            while (currentNode != null) {
+                elements.add(currentNode.getData());
+                currentNode = currentNode.getNext();
             }
             return elements;
         }
@@ -67,9 +64,11 @@ public class InMemoryHistoryManager implements HistoryManager {
                 final Node<E> next = nodeToRemove.getNext();
                 final Node<E> prev = nodeToRemove.getPrev();
 
-                nodeToRemove.setPrev(null);
-                nodeToRemove.setNext(null);
-                nodeToRemove.setData(null);
+                if (next == null && prev == null){
+                    head = null;
+                    tail = null;
+                    return;
+                }
 
                 if (prev == null) {
                     head = next;
@@ -78,6 +77,7 @@ public class InMemoryHistoryManager implements HistoryManager {
                 }
 
                 if (next == null) {
+                    prev.setNext(null);
                     tail = prev;
                 } else {
                     next.setPrev(prev);
@@ -85,10 +85,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
                 size--;
             }
-        }
-
-        public Node<E> getTail() {
-            return tail;
         }
     }
 }

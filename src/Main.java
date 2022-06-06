@@ -32,16 +32,17 @@ public class Main {
         System.out.println(manager.getSubtasks());
 
         System.out.println(manager.getEpicById(4));
-        System.out.println(manager.getSubtaskById(5));
-        for (int i = 0; i < 10; i++) {
+
+
+        for (int i = 0; i < 4; i++) {
             System.out.println(manager.getTaskById(1));
         }
+
         System.out.println(manager.getSubtaskById(5));
         Subtask updatedDocTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.IN_PROGRESS, docEpic, docTask1.getId());
         manager.updateSubtask(updatedDocTask1);
         System.out.println(manager.getSubtaskById(5));
 
-        System.out.println(manager.getTaskById(2));
 
         System.out.println("history: ");
         System.out.println(manager.getHistory());
