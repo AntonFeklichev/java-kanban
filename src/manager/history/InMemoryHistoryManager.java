@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private CustomLinkedList<Task> history = new CustomLinkedList<>();
-    private Map<Integer, Node> nodesMap = new HashMap<>();
+    private Map<Integer, Node<Task>> nodesMap = new HashMap<>();
 
     @Override
     public void add(Task task) {

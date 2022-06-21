@@ -1,3 +1,4 @@
+import manager.FileBackedTaskManager;
 import manager.Managers;
 import manager.TaskManager;
 import tasks.Epic;
@@ -8,7 +9,8 @@ import tasks.Task;
 public class Main {
     public static void main(String[] args) {
 
-        TaskManager manager = Managers.getDefault();
+//        TaskManager manager = Managers.getDefault();
+        TaskManager manager = new FileBackedTaskManager();
 
         Task homeworkTask = new Task("do homework", "do math", Status.NEW);
         Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);

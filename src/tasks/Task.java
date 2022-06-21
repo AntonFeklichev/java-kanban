@@ -7,6 +7,7 @@ public class Task {
     private String desc;
     private int id;
     private Status status;
+    private TaskTypes type = TaskTypes.TASK;
 
     public Task(String name, String desc, Status status) {
         this.name = name;
@@ -14,7 +15,14 @@ public class Task {
         this.status = status;
     }
 
-    public Task(String name, String desc, Status status, int id){
+    public Task(String name, String desc, Status status, TaskTypes type) {
+        this.name = name;
+        this.desc = desc;
+        this.status = status;
+        this.type = type;
+    }
+
+    public Task(String name, String desc, Status status, int id) {
         this.name = name;
         this.desc = desc;
         this.status = status;
@@ -22,17 +30,17 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getClass().getSimpleName() + "{" + "name=" + '\'' + name + '\'' + ", desc=" + '\'' + desc + '\'' + ", id=" + id + ", status=" + status + "}";
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(name, desc);
     }
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() == obj.getClass()) {
@@ -74,4 +82,11 @@ public class Task {
         this.status = status;
     }
 
+    public TaskTypes getType() {
+        return type;
+    }
+
+    public void setType(TaskTypes type) {
+        this.type = type;
+    }
 }
