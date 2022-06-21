@@ -8,7 +8,6 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -21,27 +20,33 @@ import java.util.Map;
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private final static String saveTasksPath = "tasks.json";
+    private final static String saveEpicsPath = "epics.json";
+    private final static String saveSubtasksPath = "subtasks.json";
+
+
 
     @Override
     public void addTask(Task task) {
         super.addTask(task);
-        saveTasks();
+        save(getTasks(), saveTasksPath);
     }
 
     @Override
     public void addSubtask(Subtask subtask) {
         super.addSubtask(subtask);
+        save(getEpics(), saveEpicsPath);
     }
 
     @Override
     public void addEpic(Epic epic) {
         super.addEpic(epic);
+        save(getEpics(), saveEpicsPath);
     }
 
     @Override
     public void updateTask(Task task) {
         super.updateTask(task);
-        saveTasks();
+        save(getTasks(), saveTasksPath);
     }
 
     @Override
@@ -52,12 +57,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void updateEpic(Epic epic) {
         super.updateEpic(epic);
+        save(getEpics(), saveEpicsPath);
     }
 
     @Override
     public void removeTaskById(int id) {
         super.removeTaskById(id);
-        saveTasks();
+        save(getTasks(), saveTasksPath);
     }
 
     @Override
@@ -70,18 +76,18 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.removeSubtaskById(subtaskId);
     }
 
-    private String mapToJsonString(Map<Integer, Task> map) {
+    private String mapToJsonString(Map<Integer, ? extends Task> map) {
         List<Task> tasksList = new ArrayList<>(map.values());
         JSONArray tasksJson = new JSONArray(tasksList);
         return tasksJson.toString();
     }
 
-    private void saveTasks() {
+    private void save(Map<Integer, ? extends Task> map, String savePath) {
         try {
-            Path save = Path.of(saveTasksPath);
+            Path save = Path.of(savePath);
             if (!Files.exists(save)) Files.createFile(save);
-            try (PrintWriter saver = new PrintWriter(saveTasksPath)) {
-                saver.write(mapToJsonString(super.getTasks()));
+            try (PrintWriter saver = new PrintWriter(savePath)) {
+                saver.write(mapToJsonString(map));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,33 +103,42 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-//    private static void loadEpicsFromFile(Path path) {
-//        try {
-//            String jsonString = Files.readString(path);
-//            super.setEpics(jsonStringToEpicMap(jsonString));
-//        } catch (IOException e) {
-//            throw new ManagerSaveException("Ошибка при загрузке задач из файла");
-//        }
-//    }
+    public void loadEpicsFromFile(Path path) {
+        try {
+            String jsonString = Files.readString(path);
+            super.setEpics(jsonStringToEpicMap(jsonString));
+        } catch (IOException e) {
+            throw new ManagerSaveException("Ошибка при загрузке задач из файла");
+        }
+    }
 
-    private static void loadSubtasksFromFile(Path path) {
+    public void loadSubtasksFromFile(Path path) {
 
     }
 
-//    private Map<Integer, Epic> jsonStringToEpicMap(String jsonString){
-//        Map<Integer, Epic> epicMap = new HashMap<>();
-//        JSONArray jsonArray = new JSONArray(jsonString);
-//        for (Object element : jsonArray) {
-//            JSONObject jsonElement = (JSONObject) element;
-//            String name = jsonElement.getString("name");
-//            String desc = jsonElement.getString("desc");
-//            int id = jsonElement.getInt("id");
-//            Status status = jsonElement.getEnum(Status.class, "status");
-//
-//            epicMap.put(id, new Epic(name, desc, status, id, subtasks));
-//        }
-//        return epicMap;
-//    }
+    private Map<Integer, Epic> jsonStringToEpicMap(String jsonString){
+        Map<Integer, Epic> epicMap = new HashMap<>();
+        JSONArray jsonEpics = new JSONArray(jsonString);
+        for (Object epic : jsonEpics) {
+            JSONObject jsonEpic = (JSONObject) epic;
+            String name = jsonEpic.getString("name");
+            String desc = jsonEpic.getString("desc");
+            int epicId = jsonEpic.getInt("id");
+            Status status = jsonEpic.getEnum(Status.class, "status");
+            JSONArray jsonSubtasks = jsonEpic.getJSONArray("subtasks");
+            List<Subtask> subtasks = new ArrayList<>();
+            for (Object subtask : jsonSubtasks) {
+                JSONObject jsonSubtask = (JSONObject) subtask;
+                String subtaskName = jsonSubtask.getString("name");
+                String subtaskDesc = jsonEpic.getString("desc");
+                int subtaskId = jsonEpic.getInt("id");
+                Status subtaskStatus = jsonEpic.getEnum(Status.class, "status");
+                subtasks.add(new Subtask(subtaskName, subtaskDesc, subtaskStatus, epicId, subtaskId));
+            }
+            epicMap.put(epicId, new Epic(name, desc, status, epicId, subtasks));
+        }
+        return epicMap;
+    }
 
     private Map<Integer, Task> jsonStringToTaskMap(String jsonString) {
         Map<Integer, Task> taskMap = new HashMap<>();
@@ -157,7 +172,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void removeAllTasks() {
         super.removeAllTasks();
-        saveTasks();
+        save(getTasks(), saveTasksPath);
     }
 
     @Override
@@ -168,7 +183,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void removeAllEpics() {
         super.removeAllEpics();
-        saveTasks();
+        save(getTasks(), saveEpicsPath);
     }
 
     @Override

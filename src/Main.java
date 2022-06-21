@@ -20,6 +20,11 @@ public class Main {
 //        Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);
 //        manager.addTask(homeworkTask);
 //        manager.addTask(carbonaraTask);
+
+        System.out.println(manager.getEpics());
+        manager.loadEpicsFromFile(Path.of("epics.json"));
+        System.out.println(manager.getEpics());
+
 //        Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
 //        Epic workEpic = new Epic("find clients", "", Status.NEW);
 //        manager.addEpic(docEpic);
@@ -30,6 +35,7 @@ public class Main {
 //        manager.addSubtask(docTask1);
 //        manager.addSubtask(docTask2);
 //        manager.addSubtask(workTask1);
+
 //
 //
 //        System.out.println("History testing:");
