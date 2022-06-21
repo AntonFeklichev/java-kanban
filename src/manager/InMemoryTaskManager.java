@@ -6,7 +6,6 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +22,26 @@ public class InMemoryTaskManager implements TaskManager {
         return tasks;
     }
 
+    public void setTasks(Map<Integer, Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public Map<Integer, Epic> getEpics() {
         return epics;
     }
 
+    public void setEpics(Map<Integer, Epic> epics) {
+        this.epics = epics;
+    }
+
     @Override
     public Map<Integer, Subtask> getSubtasks() {
         return subtasks;
+    }
+
+    public void setSubtasks(Map<Integer, Subtask> subtasks) {
+        this.subtasks = subtasks;
     }
 
     @Override
@@ -172,5 +183,4 @@ public class InMemoryTaskManager implements TaskManager {
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
-
 }
