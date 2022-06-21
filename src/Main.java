@@ -35,7 +35,9 @@ public class Main {
 //        manager.addSubtask(docTask1);
 //        manager.addSubtask(docTask2);
 //        manager.addSubtask(workTask1);
-
+        System.out.println(manager.getSubtasks());
+        manager.loadSubtasksFromFile(Path.of("subtasks.json"));
+        System.out.println(manager.getSubtasks());
 //
 //
 //        System.out.println("History testing:");
