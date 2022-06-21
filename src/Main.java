@@ -16,25 +16,25 @@ public class Main {
         System.out.println(manager.getTasks());
         manager.loadTasksFromFile(Path.of("tasks.json"));
         System.out.println(manager.getTasks());
-//        Task homeworkTask = new Task("do homework", "do math", Status.NEW);
-//        Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);
-//        manager.addTask(homeworkTask);
-//        manager.addTask(carbonaraTask);
-
+        Task homeworkTask = new Task("do homework", "do math", Status.NEW);
+        Task carbonaraTask = new Task("go to the grocery", "buy spaghetti and bacon", Status.NEW);
+        manager.addTask(homeworkTask);
+        manager.addTask(carbonaraTask);
+//
         System.out.println(manager.getEpics());
         manager.loadEpicsFromFile(Path.of("epics.json"));
         System.out.println(manager.getEpics());
 
-//        Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
-//        Epic workEpic = new Epic("find clients", "", Status.NEW);
-//        manager.addEpic(docEpic);
-//        manager.addEpic(workEpic);
-//        Subtask docTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.NEW, docEpic);
-//        Subtask docTask2 = new Subtask("go to dermatologist", "get a dermatologist consultation", Status.NEW, docEpic);
-//        Subtask workTask1 = new Subtask("find clients", "use profi.ru", Status.NEW, workEpic);
-//        manager.addSubtask(docTask1);
-//        manager.addSubtask(docTask2);
-//        manager.addSubtask(workTask1);
+        Epic docEpic = new Epic("take care about health", "visit doctors", Status.NEW);
+        Epic workEpic = new Epic("find clients", "", Status.NEW);
+        manager.addEpic(docEpic);
+        manager.addEpic(workEpic);
+        Subtask docTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.NEW, docEpic);
+        Subtask docTask2 = new Subtask("go to dermatologist", "get a dermatologist consultation", Status.NEW, docEpic);
+        Subtask workTask1 = new Subtask("find clients", "use profi.ru", Status.NEW, workEpic);
+        manager.addSubtask(docTask1);
+        manager.addSubtask(docTask2);
+        manager.addSubtask(workTask1);
         System.out.println(manager.getSubtasks());
         manager.loadSubtasksFromFile(Path.of("subtasks.json"));
         System.out.println(manager.getSubtasks());
@@ -45,17 +45,19 @@ public class Main {
 //        System.out.println(manager.getEpics());
 //        System.out.println(manager.getSubtasks());
 //
-//        System.out.println(manager.getEpicById(4));
+        System.out.println(manager.getEpicById(4));
+        System.out.println(manager.getHistory());
+        manager.loadHistoryFromFile(Path.of("history.json"));
+        System.out.println(manager.getHistory());
+
+        for (int i = 0; i < 4; i++) {
+            System.out.println(manager.getTaskById(1));
+        }
 //
-//
-//        for (int i = 0; i < 4; i++) {
-//            System.out.println(manager.getTaskById(1));
-//        }
-//
-//        System.out.println(manager.getSubtaskById(5));
-//        Subtask updatedDocTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.IN_PROGRESS, docEpic, docTask1.getId());
-//        manager.updateSubtask(updatedDocTask1);
-//        System.out.println(manager.getSubtaskById(5));
+        System.out.println(manager.getSubtaskById(5));
+        Subtask updatedDocTask1 = new Subtask("go to surgeon", "get a surgeon consultation", Status.IN_PROGRESS, docEpic, docTask1.getId());
+        manager.updateSubtask(updatedDocTask1);
+        System.out.println(manager.getSubtaskById(5));
 //
 //
 //        System.out.println("history: ");
@@ -102,9 +104,9 @@ public class Main {
 //        System.out.println(manager.getEpics());
 //        System.out.println(manager.getSubtasks());
 //        System.out.println(manager.getSubtasksOfEpic(docEpic));
-////        manager.removeAllSubtasks();
-////        manager.removeAllEpics();
-////        manager.removeAllTasks();
+//        manager.removeAllSubtasks();
+//        manager.removeAllEpics();
+//        manager.removeAllTasks();
 //        System.out.println(manager.getTasks());
 //        System.out.println(manager.getEpics());
 //        System.out.println(manager.getSubtasks());

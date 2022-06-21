@@ -7,12 +7,13 @@ public class Task {
     private String desc;
     private int id;
     private Status status;
-    private TaskTypes type = TaskTypes.TASK;
+    private TaskTypes type;
 
     public Task(String name, String desc, Status status) {
         this.name = name;
         this.desc = desc;
         this.status = status;
+        type = TaskTypes.TASK;
     }
 
     public Task(String name, String desc, Status status, TaskTypes type) {
@@ -27,6 +28,8 @@ public class Task {
         this.desc = desc;
         this.status = status;
         this.id = id;
+        type = TaskTypes.TASK;
+        this.type = TaskTypes.TASK;
     }
 
     @Override
