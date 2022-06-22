@@ -156,7 +156,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    public void saveHistory() {
+    private void saveHistory() {
         try {
             Path save = Path.of(saveHistoryPath);
             if (!Files.exists(save)) Files.createFile(save);
