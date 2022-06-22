@@ -156,7 +156,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void saveHistory() {
+    public void saveHistory() {
         try {
             Path save = Path.of(saveHistoryPath);
             if (!Files.exists(save)) Files.createFile(save);
@@ -254,19 +254,22 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     @Override
     public Task getTaskById(int id) {
+        Task task = super.getTaskById(id);
         saveHistory();
-        return super.getTaskById(id);
+        return task;
     }
 
     @Override
     public Subtask getSubtaskById(int id) {
+        Subtask subtask = super.getSubtaskById(id);
         saveHistory();
-        return super.getSubtaskById(id);
+        return subtask;
     }
 
     @Override
     public Epic getEpicById(int id) {
+        Epic epic = super.getEpicById(id);
         saveHistory();
-        return super.getEpicById(id);
+        return epic;
     }
 }
