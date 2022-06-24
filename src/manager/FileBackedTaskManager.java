@@ -16,10 +16,10 @@ import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private final static String saveTasksPath = "tasks.json";
-    private final static String saveEpicsPath = "epics.json";
-    private final static String saveSubtasksPath = "subtasks.json";
-    private final static String saveHistoryPath = "history.json";
+    private static final String SAVE_TASKS_PATH = "save/tasks.json";
+    private static final String SAVE_EPICS_PATH = "save/epics.json";
+    private static final String SAVE_SUBTASKS_PATH = "save/subtasks.json";
+    private static final String SAVE_HISTORY_PATH = "save/history.json";
 
     private static Map<Integer, Task> jsonStringToTaskMap(String jsonString) {
         Map<Integer, Task> taskMap = new HashMap<>();
@@ -88,56 +88,56 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void addTask(Task task) {
         super.addTask(task);
-        save(getTasks(), saveTasksPath);
+        save(getTasks(), SAVE_TASKS_PATH);
     }
 
     @Override
     public void addSubtask(Subtask subtask) {
         super.addSubtask(subtask);
-        save(getEpics(), saveEpicsPath);
-        save(getSubtasks(), saveSubtasksPath);
+        save(getEpics(), SAVE_EPICS_PATH);
+        save(getSubtasks(), SAVE_SUBTASKS_PATH);
     }
 
     @Override
     public void addEpic(Epic epic) {
         super.addEpic(epic);
-        save(getEpics(), saveEpicsPath);
+        save(getEpics(), SAVE_EPICS_PATH);
     }
 
     @Override
     public void updateTask(Task task) {
         super.updateTask(task);
-        save(getTasks(), saveTasksPath);
+        save(getTasks(), SAVE_TASKS_PATH);
     }
 
     @Override
     public void updateSubtask(Subtask subtask) {
         super.updateSubtask(subtask);
-        save(getSubtasks(), saveSubtasksPath);
+        save(getSubtasks(), SAVE_SUBTASKS_PATH);
     }
 
     @Override
     public void updateEpic(Epic epic) {
         super.updateEpic(epic);
-        save(getEpics(), saveEpicsPath);
+        save(getEpics(), SAVE_EPICS_PATH);
     }
 
     @Override
     public void removeTaskById(int id) {
         super.removeTaskById(id);
-        save(getTasks(), saveTasksPath);
+        save(getTasks(), SAVE_TASKS_PATH);
     }
 
     @Override
     public void removeEpicById(int epicId) {
         super.removeEpicById(epicId);
-        save(getEpics(), saveEpicsPath);
+        save(getEpics(), SAVE_EPICS_PATH);
     }
 
     @Override
     public void removeSubtaskById(int subtaskId) {
         super.removeSubtaskById(subtaskId);
-        save(getSubtasks(), saveSubtasksPath);
+        save(getSubtasks(), SAVE_SUBTASKS_PATH);
     }
 
     private String mapToJsonString(Map<Integer, ? extends Task> map) {
@@ -158,9 +158,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void saveHistory() {
         try {
-            Path save = Path.of(saveHistoryPath);
+            Path save = Path.of(SAVE_HISTORY_PATH);
             if (!Files.exists(save)) Files.createFile(save);
-            try (PrintWriter saver = new PrintWriter(saveHistoryPath)) {
+            try (PrintWriter saver = new PrintWriter(SAVE_HISTORY_PATH)) {
                 saver.write(new JSONArray(getHistory()).toString());
             }
         } catch (IOException e) {
@@ -169,9 +169,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     public void save() {
-        save(getTasks(), saveTasksPath);
-        save(getEpics(), saveEpicsPath);
-        save(getSubtasks(), saveSubtasksPath);
+        save(getTasks(), SAVE_TASKS_PATH);
+        save(getEpics(), SAVE_EPICS_PATH);
+        save(getSubtasks(), SAVE_SUBTASKS_PATH);
     }
 
     public void loadTasksFromFile(Path path) {
