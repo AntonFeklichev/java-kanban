@@ -1,0 +1,16 @@
+tasks/Epic.class
+manager/TaskManager.class
+manager/FileBackedTaskManager.class
+tasks/TaskTypes.class
+manager/history/HistoryManager.class
+tasks/Task.class
+manager/history/InMemoryHistoryManager.class
+manager/history/Node.class
+InMemoryTaskManagerTest.class
+tasks/Subtask.class
+tasks/Status.class
+manager/history/InMemoryHistoryManager$CustomLinkedList.class
+manager/exceptions/ManagerSaveException.class
+manager/InMemoryTaskManager.class
+FileBackedTaskManagerTest.class
+manager/Managers.class
