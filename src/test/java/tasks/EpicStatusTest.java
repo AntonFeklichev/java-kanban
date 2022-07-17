@@ -12,11 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EpicStatusTest {
-    TaskManager manager;
-    Epic epic;
-    Subtask subtask1;
-    Subtask subtask2;
-    Subtask subtask3;
+    private TaskManager manager;
+    private Epic epic;
+    private Subtask subtask1;
+    private Subtask subtask2;
+    private Subtask subtask3;
 
     @BeforeEach
     public void init() {

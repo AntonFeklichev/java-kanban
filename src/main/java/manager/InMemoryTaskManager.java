@@ -162,7 +162,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-
     public Status calculateStatus(Epic epic) {
         int newCounter = 0;
         int inProgressCounter = 0;

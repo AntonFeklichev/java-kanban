@@ -28,6 +28,10 @@ public class Epic extends Task {
         this.subtasks = subtasks;
     }
 
+    public Epic(int id) {
+        setId(id);
+    }
+
     public List<Subtask> getSubtasks() {
         return subtasks;
     }

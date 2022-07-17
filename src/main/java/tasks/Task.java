@@ -43,6 +43,10 @@ public class Task {
         type = TaskTypes.TASK;
     }
 
+    public Task(int id) {
+        setId(id);
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" + "name=" + '\'' + name + '\'' + ", desc=" + '\'' + desc + '\'' + ", id=" + id + ", status=" + status + "}";
