@@ -1,5 +1,6 @@
 package tasks;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,6 +9,11 @@ public class Task {
     private int id;
     private Status status;
     private TaskTypes type;
+    private ZonedDateTime startTime;
+    private long duration;
+    private ZonedDateTime endTime;
+
+    public Task() {}
 
     public Task(String name, String desc, Status status) {
         this.name = name;
@@ -29,7 +35,6 @@ public class Task {
         this.status = status;
         this.id = id;
         type = TaskTypes.TASK;
-        this.type = TaskTypes.TASK;
     }
 
     @Override
@@ -91,5 +96,30 @@ public class Task {
 
     public void setType(TaskTypes type) {
         this.type = type;
+    }
+
+    public ZonedDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(ZonedDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public ZonedDateTime getEndTime() {
+        endTime = startTime.plusMinutes(duration);
+        return endTime;
+    }
+
+    public void setEndTime(ZonedDateTime endTime) {
+        this.endTime = endTime;
     }
 }
