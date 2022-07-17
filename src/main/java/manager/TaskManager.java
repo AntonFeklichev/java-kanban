@@ -1,6 +1,7 @@
 package manager;
 
 import tasks.Epic;
+import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
@@ -50,4 +51,6 @@ public interface TaskManager {
     List<Subtask> getSubtasksOfEpic(Epic epic);
 
     List<Task> getHistory();
+
+    Status calculateStatus(Epic epic);
 }

@@ -10,7 +10,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TimeTest {
-    //    ZonedDateTime startTime = ZonedDateTime.of(1, 1, 1, 1, 1, 1, 1, ZoneId.of("Europe/Moscow"));
     ZonedDateTime startTime = ZonedDateTime.now();
     private Task task;
     private Epic epic;
@@ -19,13 +18,11 @@ public class TimeTest {
     public void init() {
         task = new Task();
         epic = new Epic();
-        epic.setId(1);
     }
 
     @Test
     public void taskTimeTest() {
-        task.setStartTime(startTime);
-        task.setDuration(121);
+        task = new Task(startTime, 121);
         assertEquals(startTime.plusMinutes(121), task.getEndTime());
     }
 
