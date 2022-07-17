@@ -13,6 +13,12 @@ public class Task {
     private long duration;
     private ZonedDateTime endTime;
 
+    public Task(ZonedDateTime startTime, long duration) {
+        this.startTime = startTime;
+        this.duration = duration;
+        endTime = startTime.plusMinutes(duration);
+    }
+
     public Task() {}
 
     public Task(String name, String desc, Status status) {
@@ -115,7 +121,6 @@ public class Task {
     }
 
     public ZonedDateTime getEndTime() {
-        endTime = startTime.plusMinutes(duration);
         return endTime;
     }
 

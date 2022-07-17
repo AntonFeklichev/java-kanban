@@ -1,10 +1,17 @@
 package tasks;
 
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
 
     private int epicId;
+
+
+    public Subtask(ZonedDateTime startTime, long duration) {
+        super(startTime, duration);
+        this.epicId = epicId;
+    }
 
     public Subtask(String name, String desc, Status status, Epic epic) {
         super(name, desc, status, TaskTypes.SUBTASK);
