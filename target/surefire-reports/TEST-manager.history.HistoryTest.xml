@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter1684503534535205406.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-18T18-55-25_771-jvmRun1 surefire4507565387576862264tmp surefire_04358212314916206597tmp"/>
+    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter5812203523196403449.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-18T20-13-15_522-jvmRun1 surefire4804815679286832602tmp surefire_04633124796852202377tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/json/json/20220320/json-20220320.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/boi/.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter1684503534535205406.jar"/>
+    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter5812203523196403449.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="18.0.1.1+2-6"/>
@@ -55,10 +55,10 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="shouldRemoveFromEndOfHistory" classname="manager.history.HistoryTest" time="0.001"/>
+  <testcase name="shouldRemoveFromEndOfHistory" classname="manager.history.HistoryTest" time="0"/>
   <testcase name="shouldRemoveFromMidOfHistory" classname="manager.history.HistoryTest" time="0.001"/>
-  <testcase name="shouldReturnEmptyListWhenEmptyHistory" classname="manager.history.HistoryTest" time="0.001"/>
-  <testcase name="shouldAddToHistory" classname="manager.history.HistoryTest" time="0.001"/>
+  <testcase name="shouldReturnEmptyListWhenEmptyHistory" classname="manager.history.HistoryTest" time="0"/>
+  <testcase name="shouldAddToHistory" classname="manager.history.HistoryTest" time="0"/>
   <testcase name="shouldRemoveDoublingTasksFromHistory" classname="manager.history.HistoryTest" time="0.001"/>
   <testcase name="shouldRemoveFromStartOfHistory" classname="manager.history.HistoryTest" time="0.001"/>
 </testsuite>

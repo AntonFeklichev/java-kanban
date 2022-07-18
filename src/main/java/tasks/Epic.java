@@ -1,20 +1,19 @@
 package tasks;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Epic extends Task {
 
     private List<Subtask> subtasks = new ArrayList<>();
-
-    public Epic() {
-    }
-
-    ;
-
     public Epic(String name, String desc, Status status) {
         super(name, desc, status, TaskTypes.EPIC);
     }
@@ -43,7 +42,17 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "{" + "name=" + '\'' + getName() + '\'' + ", desc=" + '\'' + super.getDesc() + '\'' + ", id=" + getId() + ", status=" + getStatus() + ", subtasks=" + subtasks + "}";
+        return "Task{" +
+                "name='" + getName() + '\'' +
+                ", desc='" + getDesc() + '\'' +
+                ", id=" + getId() +
+                ", status=" + getStatus() +
+                ", type=" + getType() +
+                ", startTime=" + getStartTime() +
+                ", duration=" + getDuration() +
+                ", endTime=" + getEndTime() +
+                ", subtasks=" + getSubtasks() +
+                '}';
     }
 
     @Override

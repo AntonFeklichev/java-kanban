@@ -1,5 +1,6 @@
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/Subtask.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/InMemoryHistoryManager.java
+/Users/boi/Desktop/java-kanban/src/main/java/manager/exceptions/NoSuchEpicException.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/Managers.java
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/Epic.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/Node.java

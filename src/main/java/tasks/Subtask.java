@@ -13,7 +13,6 @@ public class Subtask extends Task {
 
     public Subtask(ZonedDateTime startTime, long duration) {
         super(startTime, duration);
-        this.epicId = epicId;
     }
 
     public Subtask(String name, String desc, Status status, Epic epic) {
@@ -38,7 +37,7 @@ public class Subtask extends Task {
         setEpicId(epic.getId());
     }
 
-    public Subtask(int id, Epic epic){
+    public Subtask(int id, Epic epic) {
         setId(id);
         setEpicId(epic.getId());
     }
@@ -74,6 +73,16 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" + "name=" + '\'' + getName() + '\'' + ", desc=" + '\'' + getDesc() + '\'' + ", id=" + getId() + ", status=" + getStatus() + ", epicId=" + getEpicId() + "}";
+        return "Task{" +
+                "name='" + getName() + '\'' +
+                ", desc='" + getDesc() + '\'' +
+                ", id=" + getId() +
+                ", status=" + getStatus() +
+                ", type=" + getType() +
+                ", startTime=" + getStartTime() +
+                ", duration=" + getDuration() +
+                ", endTime=" + getEndTime() +
+                ", epicId=" + getEpicId() +
+                '}';
     }
 }

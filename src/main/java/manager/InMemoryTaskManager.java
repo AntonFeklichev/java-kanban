@@ -1,5 +1,6 @@
 package manager;
 
+import manager.exceptions.NoSuchEpicException;
 import manager.history.HistoryManager;
 import tasks.Epic;
 import tasks.Status;
@@ -97,6 +98,8 @@ public class InMemoryTaskManager implements TaskManager {
             epic.getSubtasks().add(subtask);
             epic.setStatus(calculateStatus(epic));
             subtasks.put(subtask.getId(), subtask);
+        } else {
+            throw new NoSuchEpicException("не добавлен эпик к которому относится добавляемая подазадача");
         }
     }
 

@@ -9,6 +9,7 @@ manager/history/Node.class
 InMemoryTaskManagerTest.class
 tasks/Subtask.class
 tasks/Status.class
+manager/exceptions/NoSuchEpicException.class
 manager/history/InMemoryHistoryManager$CustomLinkedList.class
 manager/exceptions/ManagerSaveException.class
 manager/InMemoryTaskManager.class

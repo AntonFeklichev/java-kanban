@@ -11,7 +11,6 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Task {
     private String name;
     private String desc;
@@ -54,10 +53,19 @@ public class Task {
         setId(id);
     }
 
-//    @Override
-//    public String toString() {
-//        return getClass().getSimpleName() + "{" + "name=" + '\'' + name + '\'' + ", desc=" + '\'' + desc + '\'' + ", id=" + id + ", status=" + status + "}";
-//    }
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                ", type=" + type +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + endTime +
+                '}';
+    }
 
     @Override
     public int hashCode() {
