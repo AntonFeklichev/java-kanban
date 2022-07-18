@@ -3,7 +3,7 @@
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/json/json/20220320/json-20220320.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:"/>
+    <property name="java.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/json/json/20220320/json-20220320.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/boi/.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar:"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
@@ -12,10 +12,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter1194150734079437215.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-17T22-02-12_961-jvmRun1 surefire474902429349176412tmp surefire_04639121820165295542tmp"/>
+    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter2455607245695901510.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-18T17-47-45_268-jvmRun1 surefire16009380114757478096tmp surefire_09128494461397567581tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/json/json/20220320/json-20220320.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/json/json/20220320/json-20220320.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/boi/.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/boi"/>
     <property name="user.language" value="en"/>
@@ -29,7 +29,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter1194150734079437215.jar"/>
+    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter2455607245695901510.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="18.0.1.1+2-6"/>
@@ -55,8 +55,8 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="shouldReturnInProgressWhenAtLeastOneInProgress" classname="tasks.EpicStatusTest" time="0.022"/>
-  <testcase name="shouldReturnNewWhenNoSubtasks" classname="tasks.EpicStatusTest" time="0"/>
+  <testcase name="shouldReturnInProgressWhenAtLeastOneInProgress" classname="tasks.EpicStatusTest" time="0.021"/>
+  <testcase name="shouldReturnNewWhenNoSubtasks" classname="tasks.EpicStatusTest" time="0.001"/>
   <testcase name="shouldReturnInProgressWhenSubtasksNewAndDone" classname="tasks.EpicStatusTest" time="0.001"/>
   <testcase name="shouldReturnStatusNewWhenAllSubtasksNew" classname="tasks.EpicStatusTest" time="0.001"/>
   <testcase name="shouldReturnDoneWhenAllSubtasksDone" classname="tasks.EpicStatusTest" time="0.001"/>

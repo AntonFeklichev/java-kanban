@@ -1,8 +1,17 @@
 package tasks;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Task {
     private String name;
     private String desc;
@@ -18,8 +27,6 @@ public class Task {
         this.duration = duration;
         endTime = startTime.plusMinutes(duration);
     }
-
-    public Task() {}
 
     public Task(String name, String desc, Status status) {
         this.name = name;
@@ -47,10 +54,10 @@ public class Task {
         setId(id);
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" + "name=" + '\'' + name + '\'' + ", desc=" + '\'' + desc + '\'' + ", id=" + id + ", status=" + status + "}";
-    }
+//    @Override
+//    public String toString() {
+//        return getClass().getSimpleName() + "{" + "name=" + '\'' + name + '\'' + ", desc=" + '\'' + desc + '\'' + ", id=" + id + ", status=" + status + "}";
+//    }
 
     @Override
     public int hashCode() {

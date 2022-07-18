@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -55,34 +55,43 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     private static Task taskFromJson(JSONObject jsonTask) {
-        String name = jsonTask.getString("name");
-        String desc = jsonTask.getString("desc");
-        int id = jsonTask.getInt("id");
-        Status status = jsonTask.getEnum(Status.class, "status");
-        return new Task(name, desc, status, id);
+        Task newTask = new Task();
+        Optional.ofNullable(jsonTask.getString("name")).ifPresent(newTask::setName);
+        Optional.ofNullable(jsonTask.getString("desc")).ifPresent(newTask::setDesc);
+        Optional.ofNullable(jsonTask.getInt("id")).ifPresent(newTask::setId);
+        Optional.ofNullable(jsonTask.getEnum(Status.class, "status")).ifPresent(newTask::setStatus);
+        Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("startTime"))).ifPresent(newTask::setStartTime);
+        Optional.ofNullable(jsonTask.getLong("duration")).ifPresent(newTask::setDuration);
+        Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("endTime"))).ifPresent(newTask::setEndTime);
+
+
+        return newTask;
     }
 
     private static Epic epicFromJson(JSONObject jsonEpic) {
-        String name = jsonEpic.getString("name");
-        String desc = jsonEpic.getString("desc");
-        int epicId = jsonEpic.getInt("id");
-        Status status = jsonEpic.getEnum(Status.class, "status");
-        JSONArray jsonSubtasks = jsonEpic.getJSONArray("subtasks");
-        List<Subtask> subtasks = new ArrayList<>();
-        for (Object subtask : jsonSubtasks) {
-            JSONObject jsonSubtask = (JSONObject) subtask;
-            subtasks.add(subtaskFromJson(jsonSubtask));
-        }
-        return new Epic(name, desc, status, epicId, subtasks);
+        Epic newEpic = new Epic();
+        Optional.ofNullable(jsonEpic.getString("name")).ifPresent(newEpic::setName);
+        Optional.ofNullable(jsonEpic.getString("desc")).ifPresent(newEpic::setDesc);
+        Optional.ofNullable(jsonEpic.getInt("id")).ifPresent(newEpic::setId);
+        Optional.ofNullable(jsonEpic.getEnum(Status.class, "status")).ifPresent(newEpic::setStatus);
+        Optional.ofNullable(ZonedDateTime.parse(jsonEpic.getString("startTime"))).ifPresent(newEpic::setStartTime);
+        Optional.ofNullable(jsonEpic.getLong("duration")).ifPresent(newEpic::setDuration);
+        Optional.ofNullable(ZonedDateTime.parse(jsonEpic.getString("endTime"))).ifPresent(newEpic::setEndTime);
+        Optional.ofNullable(jsonEpic.getJSONArray("subtasks")).ifPresent(subtasks -> subtasks.forEach(subtask -> newEpic.getSubtasks().add(subtaskFromJson((JSONObject) subtask))));
+        return newEpic;
     }
 
     private static Subtask subtaskFromJson(JSONObject jsonSubtask) {
-        String name = jsonSubtask.getString("name");
-        String desc = jsonSubtask.getString("desc");
-        int id = jsonSubtask.getInt("id");
-        int epicId = jsonSubtask.getInt("epicId");
-        Status status = jsonSubtask.getEnum(Status.class, "status");
-        return new Subtask(name, desc, status, epicId, id);
+        Subtask newSubtask = new Subtask();
+        Optional.ofNullable(jsonSubtask.getString("name")).ifPresent(newSubtask::setName);
+        Optional.ofNullable(jsonSubtask.getString("desc")).ifPresent(newSubtask::setDesc);
+        Optional.ofNullable(jsonSubtask.getInt("id")).ifPresent(newSubtask::setId);
+        Optional.ofNullable(jsonSubtask.getEnum(Status.class, "status")).ifPresent(newSubtask::setStatus);
+        Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("startTime"))).ifPresent(newSubtask::setStartTime);
+        Optional.ofNullable(jsonSubtask.getLong("duration")).ifPresent(newSubtask::setDuration);
+        Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("endTime"))).ifPresent(newSubtask::setEndTime);
+        Optional.ofNullable(jsonSubtask.getInt("epicId")).ifPresent(newSubtask::setEpicId);
+        return newSubtask;
     }
 
     @Override

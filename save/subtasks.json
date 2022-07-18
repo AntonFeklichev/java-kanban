@@ -1,0 +1,1 @@
+[{"duration":0,"epicId":3,"name":"go to surgeon","id":5,"type":"SUBTASK","status":"NEW","desc":"get a surgeon consultation"},{"duration":0,"epicId":3,"name":"go to dermatologist","id":6,"type":"SUBTASK","status":"NEW","desc":"get a dermatologist consultation"},{"duration":0,"epicId":4,"name":"find clients","id":7,"type":"SUBTASK","status":"NEW","desc":"use profi.ru"}]

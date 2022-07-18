@@ -1,8 +1,11 @@
 package tasks;
 
+import lombok.NoArgsConstructor;
+
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+@NoArgsConstructor
 public class Subtask extends Task {
 
     private int epicId;
