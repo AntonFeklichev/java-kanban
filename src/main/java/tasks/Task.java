@@ -10,7 +10,7 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class Task implements Comparable<Task> {
     private String name;
     private String desc;
     private int id;
@@ -48,6 +48,17 @@ public class Task {
         this.status = status;
         this.id = id;
         type = TaskTypes.TASK;
+        endTime = calculateEndTime();
+    }
+
+    public Task(String name, String desc, Status status, int id, ZonedDateTime startTime, long duration) {
+        this.name = name;
+        this.desc = desc;
+        this.status = status;
+        this.id = id;
+        type = TaskTypes.TASK;
+        this.startTime = startTime;
+        this.duration = duration;
         endTime = calculateEndTime();
     }
 
@@ -152,5 +163,10 @@ public class Task {
 
     private ZonedDateTime calculateEndTime() {
         return startTime != null ? startTime.plusMinutes(duration) : null;
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return getStartTime().compareTo(o.getStartTime());
     }
 }

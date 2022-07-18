@@ -47,6 +47,12 @@ public class Subtask extends Task {
         setId(id);
     }
 
+    public Subtask(String name, String desc, Status status, Epic epic, int id, ZonedDateTime startTime, long duration) {
+        super(name, desc, status, id, startTime, duration);
+        setType(TaskTypes.SUBTASK);
+        epicId = epic.getId();
+    }
+
     public int getEpicId() {
         return epicId;
     }

@@ -1,5 +1,6 @@
 package manager;
 
+import com.sun.source.tree.Tree;
 import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
 import manager.history.HistoryManager;
@@ -10,9 +11,7 @@ import tasks.Task;
 
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private HistoryManager historyManager = Managers.getDefaultHistory();
@@ -188,5 +187,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     public HistoryManager getHistoryManager() {
         return historyManager;
+    }
+
+    @Override
+    public Set<Task> getPrioritizedTasks() {
+        Set<Task> prioritized = new TreeSet<>();
+        prioritized.addAll(tasks.values());
+        prioritized.addAll(subtasks.values());
+        return prioritized;
     }
 }

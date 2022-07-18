@@ -9,8 +9,11 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,9 +28,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @BeforeEach
     public void init() {
         manager = createManager();
-        task = new Task("task", "desc of task", Status.NEW, 1);
+        task = new Task("task", "desc of task", Status.NEW, 1, ZonedDateTime.now().plusDays(3), 10);
         epic = new Epic("epic", "desc of epic", Status.NEW, 2);
-        subtask = new Subtask("subtask", "desc of subtask", Status.NEW, epic, 3);
+        subtask = new Subtask("subtask", "desc of subtask", Status.NEW, epic, 3, ZonedDateTime.now().plusHours(2), 20);
         subtask.setEpicId(epic.getId());
     }
 
@@ -161,6 +164,12 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         manager.updateSubtask(new Subtask("updated", "desc of subtask", Status.DONE, epic, subtask.getId()));
         Subtask updatedSubtask = manager.getSubtaskById(3);
         assertNotEquals(oldSubtask, updatedSubtask, "subtask was not updated");
+    }
+
+    @Test
+    public void shouldReturnPrioritizedTasks(){
+        addDefaultTasks();
+        assertEquals(Set.of(subtask, task), manager.getPrioritizedTasks());
     }
 
 }

@@ -10,8 +10,10 @@ InMemoryTaskManagerTest.class
 tasks/Subtask.class
 tasks/Status.class
 manager/exceptions/NoSuchEpicException.class
+manager/exceptions/InvalidIdException.class
 manager/history/InMemoryHistoryManager$CustomLinkedList.class
 manager/exceptions/ManagerSaveException.class
+tasks/Task$TaskBuilder.class
 manager/InMemoryTaskManager.class
 FileBackedTaskManagerTest.class
 manager/Managers.class
