@@ -38,6 +38,11 @@ public class Subtask extends Task {
         setEpicId(epic.getId());
     }
 
+    public Subtask(int id, Epic epic){
+        setId(id);
+        setEpicId(epic.getId());
+    }
+
 
     public Subtask(int id) {
         setId(id);

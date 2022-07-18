@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: manager.TaskManagerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in manager.TaskManagerTest
+shouldAddNewTask  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <null> but was: <{1=Task(name=null, desc=null, id=1, status=null, type=null, startTime=null, duration=0, endTime=null)}>
+	at manager.TaskManagerTest.shouldAddNewTask(TaskManagerTest.java:35)
+
