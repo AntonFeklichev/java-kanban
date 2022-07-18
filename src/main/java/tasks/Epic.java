@@ -1,7 +1,6 @@
 package tasks;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
@@ -9,11 +8,14 @@ import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class Epic extends Task {
 
     private List<Subtask> subtasks = new ArrayList<>();
+
     public Epic(String name, String desc, Status status) {
         super(name, desc, status, TaskTypes.EPIC);
     }
@@ -29,6 +31,39 @@ public class Epic extends Task {
 
     public Epic(int id) {
         setId(id);
+    }
+
+    public ZonedDateTime calculateStartTime() {
+        Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getStartTime).min(ChronoZonedDateTime::compareTo);
+        return calculated.orElse(getStartTime());
+    }
+
+    public long calculateDuration() {
+        return subtasks.stream().mapToLong(Subtask::getDuration).sum();
+    }
+
+    public Status calculateStatus() {
+        int newCounter = 0;
+        int inProgressCounter = 0;
+        int doneCounter = 0;
+        for (Subtask subtask : subtasks) {
+            if (subtask.getStatus().equals(Status.NEW)) {
+                newCounter++;
+            } else if (subtask.getStatus().equals(Status.IN_PROGRESS)) {
+                inProgressCounter++;
+            } else if (subtask.getStatus().equals(Status.DONE)) {
+                doneCounter++;
+            }
+        }
+        if (newCounter == subtasks.size() || subtasks.size() == 0) return Status.NEW;
+        else if (doneCounter == subtasks.size()) return Status.DONE;
+        else if (inProgressCounter > 0 || doneCounter > 0) return Status.IN_PROGRESS;
+        return getStatus();
+    }
+
+    public ZonedDateTime calculateEndTime() {
+        Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
+        return calculated.orElse(getEndTime());
     }
 
     public List<Subtask> getSubtasks() {
@@ -69,22 +104,5 @@ public class Epic extends Task {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getDesc(), getSubtasks());
-    }
-
-    @Override
-    public long getDuration() {
-        return subtasks.stream().mapToLong(Subtask::getDuration).sum();
-    }
-
-    @Override
-    public ZonedDateTime getStartTime() {
-        subtasks.stream().map(Subtask::getStartTime).min(ChronoZonedDateTime::compareTo).ifPresent(this::setStartTime);
-        return super.getStartTime();
-    }
-
-    @Override
-    public ZonedDateTime getEndTime() {
-        subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo).ifPresent(this::setEndTime);
-        return super.getEndTime();
     }
 }

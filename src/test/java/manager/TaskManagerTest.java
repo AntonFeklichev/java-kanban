@@ -1,5 +1,6 @@
 package manager;
 
+import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,4 +59,45 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         }}, manager.getSubtasks());
     }
 
+    @Test
+    public void shouldGenerateAndSetTaskId() {
+        manager.generateAndSetTaskId(task);
+        int oldId = task.getId();
+        manager.generateAndSetTaskId(task);
+        int newId = task.getId();
+        assertEquals(1, newId - oldId);
+    }
+
+    @Test
+    public void shouldRemoveTask() {
+        manager.addTask(task);
+        assertThrows(InvalidIdException.class, () -> manager.removeTaskById(-task.getId()));
+        manager.removeTaskById(task.getId());
+        assertEquals(Collections.emptyMap(), manager.getTasks());
+        assertThrows(InvalidIdException.class, () -> manager.removeTaskById(task.getId()));
+    }
+
+    @Test
+    public void shouldRemoveSubtask() {
+        manager.addEpic(epic);
+        subtask.setEpicId(epic.getId());
+        manager.addSubtask(subtask);
+        assertThrows(InvalidIdException.class, () -> manager.removeSubtaskById(-subtask.getId()));
+        manager.removeSubtaskById(subtask.getId());
+        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+        assertThrows(InvalidIdException.class, () -> manager.removeSubtaskById(subtask.getId()));
+    }
+
+    @Test
+    public void shouldRemoveEpicWithItsSubtasks() {
+        manager.addEpic(epic);
+        subtask.setEpicId(epic.getId());
+        manager.addSubtask(subtask);
+        System.out.println(manager.getEpics());
+        assertThrows(InvalidIdException.class, () -> manager.removeEpicById(-epic.getId()));
+        manager.removeEpicById(epic.getId());
+        assertEquals(Collections.emptyMap(), manager.getEpics());
+        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+        assertThrows(InvalidIdException.class, () -> manager.removeEpicById(epic.getId()));
+    }
 }

@@ -3,7 +3,6 @@ package tasks;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -24,7 +23,7 @@ public class Task {
     public Task(ZonedDateTime startTime, long duration) {
         this.startTime = startTime;
         this.duration = duration;
-        endTime = startTime.plusMinutes(duration);
+        endTime = calculateEndTime();
     }
 
     public Task(String name, String desc, Status status) {
@@ -32,6 +31,7 @@ public class Task {
         this.desc = desc;
         this.status = status;
         type = TaskTypes.TASK;
+        endTime = calculateEndTime();
     }
 
     public Task(String name, String desc, Status status, TaskTypes type) {
@@ -39,6 +39,7 @@ public class Task {
         this.desc = desc;
         this.status = status;
         this.type = type;
+        endTime = calculateEndTime();
     }
 
     public Task(String name, String desc, Status status, int id) {
@@ -47,10 +48,12 @@ public class Task {
         this.status = status;
         this.id = id;
         type = TaskTypes.TASK;
+        endTime = calculateEndTime();
     }
 
     public Task(int id) {
-        setId(id);
+        this.id = id;
+        endTime = calculateEndTime();
     }
 
     @Override
@@ -145,5 +148,9 @@ public class Task {
 
     public void setEndTime(ZonedDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    private ZonedDateTime calculateEndTime() {
+        return startTime != null ? startTime.plusMinutes(duration) : null;
     }
 }

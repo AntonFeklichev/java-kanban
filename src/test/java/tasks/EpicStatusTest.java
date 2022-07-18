@@ -34,12 +34,12 @@ public class EpicStatusTest {
     @Test
     public void shouldReturnNewWhenNoSubtasks(){
         epic.setSubtasks(Collections.emptyList());
-        assertEquals(Status.NEW, manager.calculateStatus(epic));
+        assertEquals(Status.NEW, epic.calculateStatus());
     }
 
     @Test
     public void shouldReturnStatusNewWhenAllSubtasksNew(){
-        assertEquals(Status.NEW, manager.calculateStatus(epic));
+        assertEquals(Status.NEW, epic.calculateStatus());
     }
 
     @Test
@@ -47,18 +47,18 @@ public class EpicStatusTest {
         subtask1.setStatus(Status.DONE);
         subtask2.setStatus(Status.DONE);
         subtask3.setStatus(Status.DONE);
-        assertEquals(Status.DONE, manager.calculateStatus(epic));
+        assertEquals(Status.DONE, epic.calculateStatus());
     }
 
     @Test
     public void shouldReturnInProgressWhenSubtasksNewAndDone(){
         subtask3.setStatus(Status.DONE);
-        assertEquals(Status.IN_PROGRESS, manager.calculateStatus(epic));
+        assertEquals(Status.IN_PROGRESS, epic.calculateStatus());
     }
 
     @Test
     public void shouldReturnInProgressWhenAtLeastOneInProgress(){
         subtask3.setStatus(Status.IN_PROGRESS);
-        assertEquals(Status.IN_PROGRESS, manager.calculateStatus(epic));
+        assertEquals(Status.IN_PROGRESS, epic.calculateStatus());
     }
 }

@@ -1,5 +1,6 @@
 package manager;
 
+import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
 import manager.history.HistoryManager;
 import tasks.Epic;
@@ -7,6 +8,8 @@ import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +99,7 @@ public class InMemoryTaskManager implements TaskManager {
             generateAndSetTaskId(subtask);
             Epic epic = epics.get(subtask.getEpicId());
             epic.getSubtasks().add(subtask);
-            epic.setStatus(calculateStatus(epic));
+            epic.setStatus(epic.calculateStatus());
             subtasks.put(subtask.getId(), subtask);
         } else {
             throw new NoSuchEpicException("не добавлен эпик к которому относится добавляемая подазадача");
@@ -123,7 +126,10 @@ public class InMemoryTaskManager implements TaskManager {
             epic.getSubtasks().remove(subtask);
             epic.getSubtasks().add(subtask);
             subtasks.replace(subtask.getId(), subtask);
-            epic.setStatus(calculateStatus(epic));
+            epic.setStartTime(epic.calculateStartTime());
+            epic.setDuration(epic.calculateDuration());
+            epic.setEndTime(epic.calculateEndTime());
+            epic.setStatus(epic.calculateStatus());
         }
     }
 
@@ -137,15 +143,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTaskById(int id) {
-        tasks.remove(id);
+        if (tasks.remove(id) == null)
+            throw new InvalidIdException(String.format("task with id = %d does not exist", id));
     }
 
     @Override
     public void removeEpicById(int epicId) {
-        for (Subtask subtask : epics.get(epicId).getSubtasks()) {
-            subtasks.remove(subtask.getId());
-        }
-        epics.remove(epicId);
+        if (epics.containsKey(epicId)) {
+            Epic epic = epics.get(epicId);
+            epics.remove(epicId);
+            for (Subtask subtask : epic.getSubtasks()) {
+                subtasks.remove(subtask.getId());
+            }
+        } else throw new InvalidIdException(String.format("epic with id = %d does not exist", epicId));
     }
 
     @Override
@@ -154,8 +164,13 @@ public class InMemoryTaskManager implements TaskManager {
             Subtask subtask = subtasks.get(subtaskId);
             Epic epic = epics.get(subtask.getEpicId());
             epic.getSubtasks().remove(subtask);
-            epic.setStatus(calculateStatus(epic));
+            epic.setStartTime(epic.calculateStartTime());
+            epic.setDuration(epic.calculateDuration());
+            epic.setEndTime(epic.calculateEndTime());
+            epic.setStatus(epic.calculateStatus());
             subtasks.remove(subtaskId);
+        } else {
+            throw new InvalidIdException(String.format("subtask with id = %d does not exist", subtaskId));
         }
     }
 
@@ -165,24 +180,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Status calculateStatus(Epic epic) {
-        int newCounter = 0;
-        int inProgressCounter = 0;
-        int doneCounter = 0;
-        for (Subtask subtask : epic.getSubtasks()) {
-            if (subtask.getStatus().equals(Status.NEW)) {
-                newCounter++;
-            } else if (subtask.getStatus().equals(Status.IN_PROGRESS)) {
-                inProgressCounter++;
-            } else if (subtask.getStatus().equals(Status.DONE)) {
-                doneCounter++;
-            }
-        }
-        if (newCounter == epic.getSubtasks().size() || epic.getSubtasks().size() == 0) return Status.NEW;
-        else if (doneCounter == epic.getSubtasks().size()) return Status.DONE;
-        else if (inProgressCounter > 0 || doneCounter > 0) return Status.IN_PROGRESS;
-        return epic.getStatus();
-    }
+
 
     public List<Task> getHistory() {
         return historyManager.getHistory();

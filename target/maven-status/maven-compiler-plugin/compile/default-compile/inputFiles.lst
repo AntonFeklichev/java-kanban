@@ -13,4 +13,5 @@
 /Users/boi/Desktop/java-kanban/src/main/java/manager/TaskManager.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/HistoryManager.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/InMemoryTaskManager.java
+/Users/boi/Desktop/java-kanban/src/main/java/manager/exceptions/InvalidIdException.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/FileBackedTaskManager.java
