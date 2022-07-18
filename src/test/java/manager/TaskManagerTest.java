@@ -12,8 +12,7 @@ import tasks.Task;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class TaskManagerTest<T extends TaskManager> {
     private T manager;
@@ -30,6 +29,12 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         epic = new Epic("epic", "desc of epic", Status.NEW, 2);
         subtask = new Subtask("subtask", "desc of subtask", Status.NEW, epic, 3);
         subtask.setEpicId(epic.getId());
+    }
+
+    public void addDefaultTasks() {
+        manager.addTask(task);
+        manager.addEpic(epic);
+        manager.addSubtask(subtask);
     }
 
     @Test
@@ -100,4 +105,35 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertEquals(Collections.emptyMap(), manager.getSubtasks());
         assertThrows(InvalidIdException.class, () -> manager.removeEpicById(epic.getId()));
     }
+
+    @Test
+    public void shouldRemoveAllTasks() {
+        addDefaultTasks();
+        addDefaultTasks();
+        assertNotEquals(Collections.emptyMap(), manager.getTasks());
+        manager.removeAllTasks();
+        assertEquals(Collections.emptyMap(), manager.getTasks());
+    }
+
+    @Test
+    public void shouldRemoveAllEpics() {
+        addDefaultTasks();
+        addDefaultTasks();
+        assertNotEquals(Collections.emptyMap(), manager.getEpics());
+        assertNotEquals(Collections.emptyMap(), manager.getSubtasks());
+        manager.removeAllEpics();
+        assertEquals(Collections.emptyMap(), manager.getEpics());
+        manager.removeAllSubtasks();
+        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+    }
+
+    @Test
+    public void shouldRemoveAllSubtasks() {
+        addDefaultTasks();
+        addDefaultTasks();
+        assertNotEquals(Collections.emptyMap(), manager.getSubtasks());
+        manager.removeAllSubtasks();
+        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+    }
+
 }
