@@ -1,1 +1,1 @@
-[{"duration":0,"subtasks":[{"duration":0,"epicId":4,"name":"find clients","id":7,"type":"SUBTASK","status":"NEW","desc":"use profi.ru"}],"name":"find clients","id":4,"type":"EPIC","status":"NEW","desc":""},{"duration":0,"epicId":3,"name":"go to surgeon","id":5,"type":"SUBTASK","status":"NEW","desc":"get a surgeon consultation"},{"duration":0,"name":"do homework","id":1,"type":"TASK","status":"NEW","desc":"do math"}]
+[{"duration":0,"epicId":2,"name":"updated","id":3,"type":"SUBTASK","desc":"desc of subtask","status":"DONE"}]

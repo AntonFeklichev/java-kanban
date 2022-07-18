@@ -70,7 +70,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         int oldId = task.getId();
         manager.generateAndSetTaskId(task);
         int newId = task.getId();
-        assertEquals(1, newId - oldId);
+        assertNotEquals(newId, oldId, "id does not change after adding a new task");
     }
 
     @Test
@@ -112,7 +112,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         addDefaultTasks();
         assertNotEquals(Collections.emptyMap(), manager.getTasks());
         manager.removeAllTasks();
-        assertEquals(Collections.emptyMap(), manager.getTasks());
+        assertEquals(Collections.emptyMap(), manager.getTasks(), "tasks were not removed");
     }
 
     @Test
@@ -122,9 +122,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertNotEquals(Collections.emptyMap(), manager.getEpics());
         assertNotEquals(Collections.emptyMap(), manager.getSubtasks());
         manager.removeAllEpics();
-        assertEquals(Collections.emptyMap(), manager.getEpics());
+        assertEquals(Collections.emptyMap(), manager.getEpics(), "epics were not removed");
         manager.removeAllSubtasks();
-        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+        assertEquals(Collections.emptyMap(), manager.getSubtasks(), "subtasks of the removed epics were not removed");
     }
 
     @Test
@@ -133,7 +133,34 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         addDefaultTasks();
         assertNotEquals(Collections.emptyMap(), manager.getSubtasks());
         manager.removeAllSubtasks();
-        assertEquals(Collections.emptyMap(), manager.getSubtasks());
+        assertEquals(Collections.emptyMap(), manager.getSubtasks(), "subtasks were not removed");
+    }
+
+    @Test
+    public void shouldUpdateTask(){
+        addDefaultTasks();
+        Task oldTask = manager.getTaskById(1);
+        manager.updateTask(new Task("updated", "desc of task", Status.DONE, 1));
+        Task updatedTask = manager.getTaskById(1);
+        assertNotEquals(oldTask, updatedTask, "task was not updated");
+    }
+
+    @Test
+    public void shouldUpdateEpic(){
+        addDefaultTasks();
+        Epic oldEpic = manager.getEpicById(2);
+        manager.updateEpic(new Epic("updated", "desc of epic", Status.DONE, epic.getId()));
+        Epic updatedEpic = manager.getEpicById(2);
+        assertNotEquals(oldEpic, updatedEpic, "epic was not updated");
+    }
+
+    @Test
+    public void shouldUpdateSubtask(){
+        addDefaultTasks();
+        Subtask oldSubtask = manager.getSubtaskById(3);
+        manager.updateSubtask(new Subtask("updated", "desc of subtask", Status.DONE, epic, subtask.getId()));
+        Subtask updatedSubtask = manager.getSubtaskById(3);
+        assertNotEquals(oldSubtask, updatedSubtask, "subtask was not updated");
     }
 
 }

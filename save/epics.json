@@ -1,1 +1,1 @@
-[{"duration":0,"subtasks":[{"duration":0,"epicId":1,"name":"subtask","id":2,"type":"SUBTASK","desc":"desc of subtask","status":"NEW"}],"name":"epic","id":1,"type":"TASK","desc":"desc of epic","status":"NEW"}]
+[{"duration":0,"subtasks":[{"duration":0,"epicId":1,"name":"subtask","id":2,"type":"SUBTASK","desc":"desc of subtask","status":"NEW"}],"name":"epic","id":1,"type":"EPIC","desc":"desc of epic","status":"NEW"}]

@@ -81,7 +81,7 @@ public class Task {
         if (obj == null) return false;
         if (getClass() == obj.getClass()) {
             Task otherTask = (Task) obj;
-            return id == otherTask.id;
+            return id == otherTask.id && status == otherTask.status;
         }
         return false;
     }

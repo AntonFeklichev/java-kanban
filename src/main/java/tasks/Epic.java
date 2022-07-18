@@ -22,6 +22,7 @@ public class Epic extends Task {
 
     public Epic(String name, String desc, Status status, int id) {
         super(name, desc, status, id);
+        setType(TaskTypes.EPIC);
     }
 
     public Epic(String name, String desc, Status status, int id, List<Subtask> subtasks) {
@@ -34,12 +35,25 @@ public class Epic extends Task {
     }
 
     public ZonedDateTime calculateStartTime() {
-        Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getStartTime).min(ChronoZonedDateTime::compareTo);
-        return calculated.orElse(getStartTime());
+        try {
+            Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getStartTime).min(ChronoZonedDateTime::compareTo);
+            return calculated.orElse(getEndTime());
+        } catch (NullPointerException ex) {
+            return getEndTime();
+        }
     }
 
     public long calculateDuration() {
         return subtasks.stream().mapToLong(Subtask::getDuration).sum();
+    }
+
+    public ZonedDateTime calculateEndTime() {
+        try {
+            Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
+            return calculated.orElse(getEndTime());
+        } catch (NullPointerException ex) {
+            return getEndTime();
+        }
     }
 
     public Status calculateStatus() {
@@ -61,10 +75,6 @@ public class Epic extends Task {
         return getStatus();
     }
 
-    public ZonedDateTime calculateEndTime() {
-        Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
-        return calculated.orElse(getEndTime());
-    }
 
     public List<Subtask> getSubtasks() {
         return subtasks;
@@ -77,7 +87,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Epic{" +
                 "name='" + getName() + '\'' +
                 ", desc='" + getDesc() + '\'' +
                 ", id=" + getId() +
