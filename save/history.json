@@ -1,1 +1,1 @@
-[{"duration":0,"epicId":2,"name":"updated","id":3,"type":"SUBTASK","desc":"desc of subtask","status":"DONE"}]
+[{"duration":10,"epicId":1,"name":"updated","startTime":"2022-07-21T14:43:24.484649+04:00[Europe/Samara]","id":2,"endTime":"2022-07-21T14:53:24.484649+04:00[Europe/Samara]","type":"SUBTASK","desc":"desc of subtask","status":"DONE"}]

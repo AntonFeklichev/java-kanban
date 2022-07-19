@@ -14,6 +14,7 @@ manager/exceptions/InvalidIdException.class
 manager/history/InMemoryHistoryManager$CustomLinkedList.class
 manager/exceptions/ManagerSaveException.class
 tasks/Task$TaskBuilder.class
+manager/exceptions/NoTimeException.class
 manager/InMemoryTaskManager.class
 FileBackedTaskManagerTest.class
 manager/Managers.class

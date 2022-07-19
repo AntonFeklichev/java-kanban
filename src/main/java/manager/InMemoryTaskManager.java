@@ -1,19 +1,18 @@
 package manager;
 
-import com.sun.source.tree.Tree;
 import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
+import manager.exceptions.NoTimeException;
 import manager.history.HistoryManager;
 import tasks.Epic;
-import tasks.Status;
 import tasks.Subtask;
 import tasks.Task;
 
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoZonedDateTime;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
+    private Set<Task> sorted = new TreeSet<>();
     private HistoryManager historyManager = Managers.getDefaultHistory();
     private int idForNewTasks = 1;
     private Map<Integer, Task> tasks = new HashMap<>();
@@ -49,11 +48,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
+        sorted.removeAll(tasks.values());
         tasks.clear();
     }
 
     @Override
     public void removeAllSubtasks() {
+        sorted.removeAll(subtasks.values());
         subtasks.clear();
     }
 
@@ -88,6 +89,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task task) {
+        checkTimeIntersection(task);
         generateAndSetTaskId(task);
         tasks.put(task.getId(), task);
     }
@@ -95,6 +97,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicId())) {
+            checkTimeIntersection(subtask);
             generateAndSetTaskId(subtask);
             Epic epic = epics.get(subtask.getEpicId());
             epic.getSubtasks().add(subtask);
@@ -114,6 +117,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
+            sorted.remove(tasks.get(task.getId()));
+            checkTimeIntersection(task);
+            sorted.add(task);
             tasks.replace(task.getId(), task);
         }
     }
@@ -124,6 +130,9 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = epics.get(subtask.getEpicId());
             epic.getSubtasks().remove(subtask);
             epic.getSubtasks().add(subtask);
+            sorted.remove(subtasks.get(subtask.getId()));
+            checkTimeIntersection(subtask);
+            sorted.add(subtask);
             subtasks.replace(subtask.getId(), subtask);
             epic.setStartTime(epic.calculateStartTime());
             epic.setDuration(epic.calculateDuration());
@@ -142,8 +151,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTaskById(int id) {
-        if (tasks.remove(id) == null)
+        if (tasks.containsKey(id)) {
+            sorted.remove(tasks.get(id));
+            tasks.remove(id);
+        } else {
             throw new InvalidIdException(String.format("task with id = %d does not exist", id));
+        }
     }
 
     @Override
@@ -167,6 +180,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setDuration(epic.calculateDuration());
             epic.setEndTime(epic.calculateEndTime());
             epic.setStatus(epic.calculateStatus());
+            sorted.remove(subtasks.get(subtaskId));
             subtasks.remove(subtaskId);
         } else {
             throw new InvalidIdException(String.format("subtask with id = %d does not exist", subtaskId));
@@ -179,8 +193,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-
-
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
@@ -190,10 +202,32 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Set<Task> getPrioritizedTasks() {
-        Set<Task> prioritized = new TreeSet<>();
-        prioritized.addAll(tasks.values());
-        prioritized.addAll(subtasks.values());
+    public List<Task> getPrioritizedTasks() {
+        List<Task> timeIsNull = new ArrayList<>();
+        tasks.values().forEach(task -> {
+            if (!(task.getStartTime() == null || task.getEndTime() == null || task.getStartTime().isAfter(task.getEndTime()))) {
+                sorted.add(task);
+            } else timeIsNull.add(task);
+        });
+        subtasks.values().forEach(subtask -> {
+            if (!(subtask.getStartTime() == null || subtask.getEndTime() == null || subtask.getStartTime().isAfter(subtask.getEndTime()))) {
+                sorted.add(subtask);
+            } else timeIsNull.add(subtask);
+        });
+        List<Task> prioritized = new ArrayList<>();
+        prioritized.addAll(sorted);
+        prioritized.addAll(timeIsNull);
         return prioritized;
+    }
+
+    public void checkTimeIntersection(Task task) {
+        ZonedDateTime startTime = task.getStartTime();
+        ZonedDateTime endTime = task.getEndTime();
+        if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
+            return;
+        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
+            System.out.println("KAKASHKA");
+            throw new NoTimeException("time is already occupied with another task");
+        }
     }
 }

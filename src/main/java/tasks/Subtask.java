@@ -32,7 +32,13 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    public Subtask(Status status, Epic epic) {
+    public Subtask(Status status, Epic epic, ZonedDateTime startTime, long duration) {
+        super(startTime, duration);
+        setStatus(status);
+        setEpicId(epic.getId());
+    }
+
+    public Subtask(Status status, Epic epic){
         setStatus(status);
         setEpicId(epic.getId());
     }

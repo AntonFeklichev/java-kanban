@@ -161,7 +161,7 @@ public class Task implements Comparable<Task> {
         this.endTime = endTime;
     }
 
-    private ZonedDateTime calculateEndTime() {
+    public ZonedDateTime calculateEndTime() {
         return startTime != null ? startTime.plusMinutes(duration) : null;
     }
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,17 +18,21 @@ public class EpicStatusTest {
     private Subtask subtask1;
     private Subtask subtask2;
     private Subtask subtask3;
+    private ZonedDateTime now;
+    private long defaultDuration;
 
     @BeforeEach
     public void init() {
         manager = Managers.getDefault();
+        now = ZonedDateTime.now();
+
         epic = new Epic();
         manager.addEpic(epic);
-        subtask1 = new Subtask(Status.NEW, epic);
+        subtask1 = new Subtask(Status.NEW, epic, now, defaultDuration);
         manager.addSubtask(subtask1);
-        subtask2 = new Subtask(Status.NEW, epic);
+        subtask2 = new Subtask(Status.NEW, epic, now.plusDays(1), defaultDuration);
         manager.addSubtask(subtask2);
-        subtask3 = new Subtask(Status.NEW, epic);
+        subtask3 = new Subtask(Status.NEW, epic, now.plusDays(2), defaultDuration);
         manager.addSubtask(subtask3);
     }
 
