@@ -1,4 +1,9 @@
 manager/TaskManagerTest$3.class
+manager/TimeTest.class
+manager/history/HistoryTest.class
+tasks/EpicStatusTest.class
 manager/TaskManagerTest.class
+manager/InMemoryTaskManagerTest.class
 manager/TaskManagerTest$1.class
 manager/TaskManagerTest$2.class
+manager/FileBackedTaskManagerTest.class

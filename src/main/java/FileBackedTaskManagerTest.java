@@ -29,42 +29,41 @@ public class FileBackedTaskManagerTest {
         manager1.addSubtask(docTask2);
         manager1.addSubtask(workTask1);
 
-        System.out.println("Filling history:");
-        System.out.println(manager1.getEpicById(4));
-        for (int i = 0; i < 4; i++) {
-            System.out.println(manager1.getTaskById(1));
-        }
-        System.out.println(manager1.getSubtaskById(5));
-        System.out.println(manager1.getTaskById(1));
-        System.out.println("__________________________________________________________________");
-        System.out.println("All tasks of manager 1:");
-        System.out.println(manager1.getTasks());
-        System.out.println("All epics of manager 1:");
-        System.out.println(manager1.getEpics());
-        System.out.println("All subtasks of manager 1:");
-        System.out.println(manager1.getSubtasks());
-        System.out.println("History of manager 1:");
-        System.out.println(manager1.getHistory());
-        System.out.println("Loading from file test:");
-        FileBackedTaskManager manager2 = new FileBackedTaskManager();
-        System.out.println(manager2.getHistory());
-        manager2.loadTasksFromFile(Path.of("save/tasks.json"));
-        manager2.loadEpicsFromFile(Path.of("save/epics.json"));
-        manager2.loadSubtasksFromFile(Path.of("save/subtasks.json"));
-        manager2.loadHistoryFromFile(Path.of("save/history.json"));
-        System.out.println("All tasks of manager 2 after loading: ");
-        System.out.println(manager2.getTasks());
-        System.out.println("All epics of manager 2 after loading:");
-        System.out.println(manager2.getEpics());
-        System.out.println("All subtasks of manager 2 after loading:");
-        System.out.println(manager2.getSubtasks());
-        System.out.println("History of manager 2 after loading:");
-        System.out.println(manager2.getHistory());
-        System.out.println("\n__________________________________________________________________\n");
-        System.out.printf("Tasks check: %b%n", manager1.getTasks().equals(manager2.getTasks()));
-        System.out.printf("Epics check: %b%n", manager1.getEpics().equals(manager2.getEpics()));
-        System.out.printf("Subtasks check: %b%n", manager1.getSubtasks().equals(manager2.getSubtasks()));
-        System.out.printf("History check: %b%n", manager1.getHistory().equals(manager2.getHistory()));
+//        System.out.println("Filling history:");
+//        System.out.println(manager1.getEpicById(4));
+//        for (int i = 0; i < 4; i++) {
+//            System.out.println(manager1.getTaskById(1));
+//        }
+//        System.out.println(manager1.getSubtaskById(5));
+//        System.out.println(manager1.getTaskById(1));
+//        System.out.println("__________________________________________________________________");
+//        System.out.println("All tasks of manager 1:");
+//        System.out.println(manager1.getTasks());
+//        System.out.println("All epics of manager 1:");
+//        System.out.println(manager1.getEpics());
+//        System.out.println("All subtasks of manager 1:");
+//        System.out.println(manager1.getSubtasks());
+//        System.out.println("History of manager 1:");
+//        System.out.println(manager1.getHistory());
+//        System.out.println("Loading from file test:");
+//        FileBackedTaskManager manager2 = new FileBackedTaskManager();
+//        System.out.println(manager2.getHistory());
+//        manager2.loadEpicsFromFile(Path.of("save/epics.json"));
+//        manager2.loadSubtasksFromFile(Path.of("save/subtasks.json"));
+//        manager2.loadHistoryFromFile(Path.of("save/history.json"));
+//        System.out.println("All tasks of manager 2 after loading: ");
+//        System.out.println(manager2.getTasks());
+//        System.out.println("All epics of manager 2 after loading:");
+//        System.out.println(manager2.getEpics());
+//        System.out.println("All subtasks of manager 2 after loading:");
+//        System.out.println(manager2.getSubtasks());
+//        System.out.println("History of manager 2 after loading:");
+//        System.out.println(manager2.getHistory());
+//        System.out.println("\n__________________________________________________________________\n");
+//        System.out.printf("Tasks check: %b%n", manager1.getTasks().equals(manager2.getTasks()));
+//        System.out.printf("Epics check: %b%n", manager1.getEpics().equals(manager2.getEpics()));
+//        System.out.printf("Subtasks check: %b%n", manager1.getSubtasks().equals(manager2.getSubtasks()));
+//        System.out.printf("History check: %b%n", manager1.getHistory().equals(manager2.getHistory()));
 
     }
 }

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: manager.FileBackedTaskManagerTest
 -------------------------------------------------------------------------------
-Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 s - in manager.FileBackedTaskManagerTest
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.175 s - in manager.FileBackedTaskManagerTest

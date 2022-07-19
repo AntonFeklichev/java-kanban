@@ -63,8 +63,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("startTime"))).ifPresent(newTask::setStartTime);
         Optional.ofNullable(jsonTask.getLong("duration")).ifPresent(newTask::setDuration);
         Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("endTime"))).ifPresent(newTask::setEndTime);
-
-
         return newTask;
     }
 
@@ -74,10 +72,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Optional.ofNullable(jsonEpic.getString("desc")).ifPresent(newEpic::setDesc);
         Optional.ofNullable(jsonEpic.getInt("id")).ifPresent(newEpic::setId);
         Optional.ofNullable(jsonEpic.getEnum(Status.class, "status")).ifPresent(newEpic::setStatus);
-        Optional.ofNullable(ZonedDateTime.parse(jsonEpic.getString("startTime"))).ifPresent(newEpic::setStartTime);
-        Optional.ofNullable(jsonEpic.getLong("duration")).ifPresent(newEpic::setDuration);
-        Optional.ofNullable(ZonedDateTime.parse(jsonEpic.getString("endTime"))).ifPresent(newEpic::setEndTime);
         Optional.ofNullable(jsonEpic.getJSONArray("subtasks")).ifPresent(subtasks -> subtasks.forEach(subtask -> newEpic.getSubtasks().add(subtaskFromJson((JSONObject) subtask))));
+        newEpic.setStartTime(newEpic.calculateStartTime());
+        newEpic.setDuration(newEpic.calculateDuration());
+        newEpic.setEndTime(newEpic.calculateEndTime());
         return newEpic;
     }
 
@@ -88,7 +86,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Optional.ofNullable(jsonSubtask.getInt("id")).ifPresent(newSubtask::setId);
         Optional.ofNullable(jsonSubtask.getEnum(Status.class, "status")).ifPresent(newSubtask::setStatus);
         Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("startTime"))).ifPresent(newSubtask::setStartTime);
-        Optional.ofNullable(jsonSubtask.getLong("duration")).ifPresent(newSubtask::setDuration);
         Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("endTime"))).ifPresent(newSubtask::setEndTime);
         Optional.ofNullable(jsonSubtask.getInt("epicId")).ifPresent(newSubtask::setEpicId);
         return newSubtask;
@@ -97,56 +94,55 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public void addTask(Task task) {
         super.addTask(task);
-        save(getTasks(), SAVE_TASKS_PATH);
+        save();
     }
 
     @Override
     public void addSubtask(Subtask subtask) {
         super.addSubtask(subtask);
-        save(getEpics(), SAVE_EPICS_PATH);
-        save(getSubtasks(), SAVE_SUBTASKS_PATH);
+        save();
     }
 
     @Override
     public void addEpic(Epic epic) {
         super.addEpic(epic);
-        save(getEpics(), SAVE_EPICS_PATH);
+        save();
     }
 
     @Override
     public void updateTask(Task task) {
         super.updateTask(task);
-        save(getTasks(), SAVE_TASKS_PATH);
+        save();
     }
 
     @Override
     public void updateSubtask(Subtask subtask) {
         super.updateSubtask(subtask);
-        save(getSubtasks(), SAVE_SUBTASKS_PATH);
+        save();
     }
 
     @Override
     public void updateEpic(Epic epic) {
         super.updateEpic(epic);
-        save(getEpics(), SAVE_EPICS_PATH);
+        save();
     }
 
     @Override
     public void removeTaskById(int id) {
         super.removeTaskById(id);
-        save(getTasks(), SAVE_TASKS_PATH);
+        save();
     }
 
     @Override
     public void removeEpicById(int epicId) {
         super.removeEpicById(epicId);
-        save(getEpics(), SAVE_EPICS_PATH);
+        save();
     }
 
     @Override
     public void removeSubtaskById(int subtaskId) {
         super.removeSubtaskById(subtaskId);
-        save(getSubtasks(), SAVE_SUBTASKS_PATH);
+        save();
     }
 
     private String mapToJsonString(Map<Integer, ? extends Task> map) {

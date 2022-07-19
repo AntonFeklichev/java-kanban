@@ -171,8 +171,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldReturnPrioritizedTasks() {
         addDefaultTasks();
-        Task t = new Task("s", "s", Status.NEW, 4, now.plusDays(123), defaultDuration);
-//        Task t = new Task(4);
+        Task t = new Task("s", "s", Status.NEW, 4, null, 0);
         manager.addTask(t);
         assertEquals(List.of(subtask, task, t), manager.getPrioritizedTasks());
     }

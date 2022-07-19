@@ -226,7 +226,6 @@ public class InMemoryTaskManager implements TaskManager {
         if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
             return;
         } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
-            System.out.println("KAKASHKA");
             throw new NoTimeException("time is already occupied with another task");
         }
     }

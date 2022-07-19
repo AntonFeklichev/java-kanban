@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class Epic extends Task {
 
-    private List<Subtask> subtasks = new ArrayList<>();
+    private List<Subtask> subtasks = new LinkedList<>();
 
     public Epic(String name, String desc, Status status) {
         super(name, desc, status, TaskTypes.EPIC);
@@ -28,6 +28,7 @@ public class Epic extends Task {
     public Epic(String name, String desc, Status status, int id, List<Subtask> subtasks) {
         super(name, desc, status, id);
         this.subtasks = subtasks;
+        setType(TaskTypes.EPIC);
     }
 
     public Epic(int id) {
@@ -42,11 +43,11 @@ public class Epic extends Task {
             return getEndTime();
         }
     }
-
     public long calculateDuration() {
         return subtasks.stream().mapToLong(Subtask::getDuration).sum();
     }
 
+    @Override
     public ZonedDateTime calculateEndTime() {
         try {
             Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
