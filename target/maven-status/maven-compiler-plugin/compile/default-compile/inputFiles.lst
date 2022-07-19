@@ -4,12 +4,10 @@
 /Users/boi/Desktop/java-kanban/src/main/java/manager/Managers.java
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/Epic.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/Node.java
-/Users/boi/Desktop/java-kanban/src/main/java/InMemoryTaskManagerTest.java
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/TaskTypes.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/exceptions/ManagerSaveException.java
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/Status.java
 /Users/boi/Desktop/java-kanban/src/main/java/tasks/Task.java
-/Users/boi/Desktop/java-kanban/src/main/java/FileBackedTaskManagerTest.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/TaskManager.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/exceptions/NoTimeException.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/HistoryManager.java

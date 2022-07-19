@@ -87,6 +87,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         initTasks();
         initEpicsAndSubtasks();
         manager1.getTaskById(1);
+        manager1.getTaskById(1);
         manager1.getSubtaskById(5);
         manager1.getEpicById(3);
         manager2.loadHistoryFromFile(Path.of("save/history.json"));

@@ -1,7 +1,5 @@
 package manager;
 
-import manager.Managers;
-import manager.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.Epic;
@@ -17,12 +15,10 @@ public class TimeTest {
     ZonedDateTime startTime = ZonedDateTime.now();
     private Task task;
     private Epic epic;
-    private TaskManager manager;
 
     @BeforeEach
     public void init() {
         epic = new Epic();
-        manager = Managers.getDefault();
     }
 
     @Test

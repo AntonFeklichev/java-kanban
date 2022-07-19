@@ -192,4 +192,15 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         manager.addTask(task);
         assertThrows(NoTimeException.class, () -> manager.addTask(task));
     }
+
+    @Test
+    public void shouldReturnHistoryInCorrectOrder(){
+        addDefaultTasks();
+        manager.getTaskById(task.getId());
+        manager.getTaskById(task.getId());
+        manager.getSubtaskById(subtask.getId());
+        manager.getEpicById(epic.getId());
+        manager.getSubtaskById(subtask.getId());
+        assertEquals(List.of(task, epic, subtask), manager.getHistory(), "history is incorrect");
+    }
 }

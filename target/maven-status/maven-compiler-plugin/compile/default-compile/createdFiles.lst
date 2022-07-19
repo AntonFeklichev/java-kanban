@@ -6,7 +6,6 @@ manager/history/HistoryManager.class
 tasks/Task.class
 manager/history/InMemoryHistoryManager.class
 manager/history/Node.class
-InMemoryTaskManagerTest.class
 tasks/Subtask.class
 tasks/Status.class
 manager/exceptions/NoSuchEpicException.class
@@ -16,5 +15,4 @@ manager/exceptions/ManagerSaveException.class
 tasks/Task$TaskBuilder.class
 manager/exceptions/NoTimeException.class
 manager/InMemoryTaskManager.class
-FileBackedTaskManagerTest.class
 manager/Managers.class
