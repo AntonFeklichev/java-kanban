@@ -1,7 +1,7 @@
 package manager.fileBacked;
 
-import manager.inMemory.InMemoryTaskManager;
 import manager.exceptions.ManagerSaveException;
+import manager.inMemory.InMemoryTaskManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tasks.*;
@@ -16,11 +16,16 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
-
     private static final String SAVE_TASKS_PATH = "save/tasks.json";
     private static final String SAVE_EPICS_PATH = "save/epics.json";
     private static final String SAVE_SUBTASKS_PATH = "save/subtasks.json";
     private static final String SAVE_HISTORY_PATH = "save/history.json";
+    public FileBackedTaskManager() {
+        loadTasksFromFile(Path.of(SAVE_TASKS_PATH));
+        loadEpicsFromFile(Path.of(SAVE_EPICS_PATH));
+        loadSubtasksFromFile(Path.of(SAVE_SUBTASKS_PATH));
+        loadHistoryFromFile(Path.of(SAVE_HISTORY_PATH));
+    }
 
     private static Map<Integer, Task> jsonStringToTaskMap(String jsonString) {
         Map<Integer, Task> taskMap = new HashMap<>();

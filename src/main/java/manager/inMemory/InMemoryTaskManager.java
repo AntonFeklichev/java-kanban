@@ -222,6 +222,15 @@ public class InMemoryTaskManager implements TaskManager {
         return prioritized;
     }
 
+    @Override
+    public Map<Integer, Task> getTasksOfAllTypes() {
+        Map<Integer, Task> tasksOfAllTypes = new HashMap<>();
+        tasksOfAllTypes.putAll(tasks);
+        tasksOfAllTypes.putAll(epics);
+        tasksOfAllTypes.putAll(subtasks);
+        return tasksOfAllTypes;
+    }
+
     public void checkTimeIntersection(Task task) {
         ZonedDateTime startTime = task.getStartTime();
         ZonedDateTime endTime = task.getEndTime();
