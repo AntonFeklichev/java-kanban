@@ -1,19 +1,17 @@
 package manager.http;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import gsonTypeAdapters.ZonedDateTimeAdapter;
 import manager.Managers;
 import manager.TaskManager;
+import manager.http.handlers.TaskHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
-import java.time.ZonedDateTime;
 import java.util.logging.Logger;
 
 public class HttpTaskServer {
@@ -23,16 +21,13 @@ public class HttpTaskServer {
     private TaskManager manager;
     private HttpServer server;
 
-    private Gson createGson() {
-        return gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter()).create();
-    }
 
     public HttpTaskServer(int port, int backlog) {
         try {
             manager = Managers.getFileBacked();
             server = HttpServer.create(new InetSocketAddress(port), backlog);
-            server.createContext("/tasks", new TaskHandler());
-            gson = createGson();
+//            server.createContext("/tasks", new TasksHandler(manager));
+            server.createContext("/tasks/task", new TaskHandler(manager));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +38,12 @@ public class HttpTaskServer {
         LOGGER.info("server started");
     }
 
-    private class TaskHandler implements HttpHandler {
+    private class TasksHandler implements HttpHandler {
+        private TaskManager manager;
+
+        public TasksHandler(TaskManager manager) {
+            this.manager = manager;
+        }
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {

@@ -47,6 +47,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Type type = new TypeToken<Map<Integer, Task>>() {
                 }.getType();
                 Map<Integer, Task> loadedTasks = gson.fromJson(reader, type);
+                idForNewTasks += loadedTasks.keySet().size();
                 setTasks(loadedTasks == null ? new HashMap<>() : loadedTasks);
             }
         } catch (IOException e) {
@@ -62,6 +63,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Type type = new TypeToken<Map<Integer, Epic>>() {
                 }.getType();
                 Map<Integer, Epic> loadedEpics = gson.fromJson(reader, type);
+                idForNewTasks += loadedEpics.keySet().size();
                 setEpics(loadedEpics == null ? new HashMap<>() : loadedEpics);
             }
         } catch (IOException e) {
@@ -77,6 +79,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Type type = new TypeToken<Map<Integer, Subtask>>() {
                 }.getType();
                 Map<Integer, Subtask> loadedSubtasks = gson.fromJson(reader, type);
+                idForNewTasks += loadedSubtasks.keySet().size();
                 setSubtasks(loadedSubtasks == null ? new HashMap<>() : loadedSubtasks);
             }
         } catch (IOException e) {
@@ -281,7 +284,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeAll(){
+    public void removeAll() {
         super.removeAll();
         saveData();
     }

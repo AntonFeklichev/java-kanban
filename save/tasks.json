@@ -1,22 +1,22 @@
 {
-  "1": {
-    "name": "do homework",
-    "desc": "do math",
-    "id": 1,
+  "8": {
+    "name": "task",
+    "desc": "desc of task",
+    "id": 8,
     "status": "NEW",
     "type": "TASK",
-    "startTime": "2022-07-21T23:55:27.395846+04:00[Europe/Samara]",
-    "duration": 20,
-    "endTime": "2022-07-22T00:15:27.395846+04:00[Europe/Samara]"
+    "startTime": "null",
+    "duration": 0,
+    "endTime": "null"
   },
-  "2": {
-    "name": "go to the grocery",
-    "desc": "buy spaghetti and bacon",
-    "id": 2,
+  "9": {
+    "name": "myTask",
+    "desc": "desc of myTask",
+    "id": 9,
     "status": "NEW",
     "type": "TASK",
-    "startTime": "2022-07-22T23:55:27.395846+04:00[Europe/Samara]",
-    "duration": 20,
-    "endTime": "2022-07-23T00:15:27.395846+04:00[Europe/Samara]"
+    "startTime": "null",
+    "duration": 0,
+    "endTime": "null"
   }
 }
