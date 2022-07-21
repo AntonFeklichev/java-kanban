@@ -1,5 +1,7 @@
-package manager;
+package manager.inMemory;
 
+import manager.Managers;
+import manager.TaskManager;
 import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
 import manager.exceptions.NoTimeException;
