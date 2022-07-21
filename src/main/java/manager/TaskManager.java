@@ -53,7 +53,7 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();
 
-    Map<Integer, Task> getTasksOfAllTypes();
+    Map<Integer, ? extends Task> getTasksOfAllTypes();
 
     void removeAll();
 }

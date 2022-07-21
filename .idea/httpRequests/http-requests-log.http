@@ -1,0 +1,33 @@
+GET http://localhost:8080/tasks/task
+Accept: application/json
+
+<> 2022-07-21T222312.200.txt
+
+###
+
+GET http://localhost:8080/tasks/task
+Accept: application/json
+
+<> 2022-07-21T222311.200.txt
+
+###
+
+GET http://localhost:8080/tasks/task
+Accept: application/json
+
+<> 2022-07-21T222309.200.txt
+
+###
+
+GET http://localhost:8080/tasks/task
+Accept: application/json
+
+<> 2022-07-21T222305.200.txt
+
+###
+
+GET http://localhost:8080/tasks/task
+Accept: application/json
+
+###
+

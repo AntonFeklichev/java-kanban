@@ -6,9 +6,9 @@
     "id": 5,
     "status": "NEW",
     "type": "SUBTASK",
-    "startTime": "2022-07-23T22:10:24.965871+04:00[Europe/Samara]",
+    "startTime": "2022-07-23T23:55:27.395846+04:00[Europe/Samara]",
     "duration": 20,
-    "endTime": "2022-07-23T22:30:24.965871+04:00[Europe/Samara]"
+    "endTime": "2022-07-24T00:15:27.395846+04:00[Europe/Samara]"
   },
   "6": {
     "epicId": 3,
@@ -17,9 +17,9 @@
     "id": 6,
     "status": "NEW",
     "type": "SUBTASK",
-    "startTime": "2022-07-24T22:10:24.965871+04:00[Europe/Samara]",
+    "startTime": "2022-07-24T23:55:27.395846+04:00[Europe/Samara]",
     "duration": 20,
-    "endTime": "2022-07-24T22:30:24.965871+04:00[Europe/Samara]"
+    "endTime": "2022-07-25T00:15:27.395846+04:00[Europe/Samara]"
   },
   "7": {
     "epicId": 4,
@@ -28,8 +28,8 @@
     "id": 7,
     "status": "NEW",
     "type": "SUBTASK",
-    "startTime": "2022-07-25T22:10:24.965871+04:00[Europe/Samara]",
+    "startTime": "2022-07-25T23:55:27.395846+04:00[Europe/Samara]",
     "duration": 20,
-    "endTime": "2022-07-25T22:30:24.965871+04:00[Europe/Samara]"
+    "endTime": "2022-07-26T00:15:27.395846+04:00[Europe/Samara]"
   }
 }

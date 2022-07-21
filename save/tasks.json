@@ -5,9 +5,9 @@
     "id": 1,
     "status": "NEW",
     "type": "TASK",
-    "startTime": "2022-07-21T22:10:24.965871+04:00[Europe/Samara]",
+    "startTime": "2022-07-21T23:55:27.395846+04:00[Europe/Samara]",
     "duration": 20,
-    "endTime": "2022-07-21T22:30:24.965871+04:00[Europe/Samara]"
+    "endTime": "2022-07-22T00:15:27.395846+04:00[Europe/Samara]"
   },
   "2": {
     "name": "go to the grocery",
@@ -15,8 +15,8 @@
     "id": 2,
     "status": "NEW",
     "type": "TASK",
-    "startTime": "2022-07-22T22:10:24.965871+04:00[Europe/Samara]",
+    "startTime": "2022-07-22T23:55:27.395846+04:00[Europe/Samara]",
     "duration": 20,
-    "endTime": "2022-07-22T22:30:24.965871+04:00[Europe/Samara]"
+    "endTime": "2022-07-23T00:15:27.395846+04:00[Europe/Samara]"
   }
 }

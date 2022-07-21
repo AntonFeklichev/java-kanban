@@ -20,7 +20,8 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, Subtask> subtasks = new HashMap<>();
-    public InMemoryTaskManager(){
+
+    public InMemoryTaskManager() {
         tasks = new HashMap<>();
         epics = new HashMap<>();
         subtasks = new HashMap<>();
@@ -123,8 +124,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
-            sorted.remove(tasks.get(task.getId()));
             checkTimeIntersection(task);
+            sorted.remove(tasks.get(task.getId()));
             sorted.add(task);
             tasks.replace(task.getId(), task);
         }
@@ -209,18 +210,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getPrioritizedTasks() {
-        List<Task> timeIsNull = new ArrayList<>();
-        tasks.values().forEach(task -> {
-            if (!(task.getStartTime() == null || task.getEndTime() == null || task.getStartTime().isAfter(task.getEndTime()))) {
-                sorted.add(task);
-            } else timeIsNull.add(task);
-        });
-        subtasks.values().forEach(subtask -> {
-            if (!(subtask.getStartTime() == null || subtask.getEndTime() == null || subtask.getStartTime().isAfter(subtask.getEndTime()))) {
-                sorted.add(subtask);
-            } else timeIsNull.add(subtask);
-        });
         List<Task> prioritized = new ArrayList<>();
+        List<Task> timeIsNull = new ArrayList<>();
+        Map<Integer, Task> tasksWithSubtasks = new HashMap<>();
+        tasksWithSubtasks.putAll(tasks);
+        tasksWithSubtasks.putAll(subtasks);
+        tasksWithSubtasks.values()
+                .forEach(task -> {
+                    if (task.getStartTime() == null
+                            || task.getEndTime() == null
+                            || task.getStartTime().isAfter(task.getEndTime())) {
+                        timeIsNull.add(task);
+                    } else {
+                        sorted.add(task);
+                    }
+                });
         prioritized.addAll(sorted);
         prioritized.addAll(timeIsNull);
         return prioritized;
@@ -235,17 +239,20 @@ public class InMemoryTaskManager implements TaskManager {
         return tasksOfAllTypes;
     }
 
-    public void checkTimeIntersection(Task task) {
+    public void checkTimeIntersection(Task task) throws NoTimeException {
         ZonedDateTime startTime = task.getStartTime();
         ZonedDateTime endTime = task.getEndTime();
         if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
             return;
-        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
+        } else if (getPrioritizedTasks().stream()
+                .filter(t -> t.getStartTime() != null && t.getEndTime() != null)
+                .anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
             throw new NoTimeException("time is already occupied with another task");
         }
     }
+
     @Override
-    public void removeAll(){
+    public void removeAll() {
         removeAllTasks();
         removeAllEpics();
         removeAllSubtasks();
