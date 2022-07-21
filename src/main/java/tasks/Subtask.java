@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Subtask extends Task {
 
     private int epicId;
+    private static final TaskTypes TYPE = TaskTypes.SUBTASK;
 
 
     public Subtask(ZonedDateTime startTime, long duration) {

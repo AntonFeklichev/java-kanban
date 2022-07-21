@@ -10,18 +10,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@NoArgsConstructor
 @AllArgsConstructor
 public class Epic extends Task {
+
+    private static final TaskTypes TYPE = TaskTypes.EPIC;
 
     private List<Subtask> subtasks = new LinkedList<>();
 
     public Epic(String name, String desc, Status status) {
         super(name, desc, status, TaskTypes.EPIC);
+        setType(TaskTypes.EPIC);
     }
 
     public Epic(String name, String desc, Status status, int id) {
         super(name, desc, status, id);
+        setType(TaskTypes.EPIC);
+    }
+
+    public Epic(){
         setType(TaskTypes.EPIC);
     }
 
@@ -33,6 +39,7 @@ public class Epic extends Task {
 
     public Epic(int id) {
         setId(id);
+        setType(TaskTypes.EPIC);
     }
 
     public ZonedDateTime calculateStartTime() {
@@ -43,6 +50,7 @@ public class Epic extends Task {
             return getEndTime();
         }
     }
+
     public long calculateDuration() {
         return subtasks.stream().mapToLong(Subtask::getDuration).sum();
     }

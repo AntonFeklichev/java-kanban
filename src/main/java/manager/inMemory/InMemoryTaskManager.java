@@ -20,6 +20,11 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, Subtask> subtasks = new HashMap<>();
+    public InMemoryTaskManager(){
+        tasks = new HashMap<>();
+        epics = new HashMap<>();
+        subtasks = new HashMap<>();
+    }
 
     @Override
     public Map<Integer, Task> getTasks() {
@@ -85,8 +90,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void generateAndSetTaskId(Task task) {
-        task.setId(idForNewTasks);
-        idForNewTasks++;
+        task.setId(idForNewTasks++);
     }
 
     @Override
@@ -232,12 +236,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void checkTimeIntersection(Task task) {
-        ZonedDateTime startTime = task.getStartTime();
-        ZonedDateTime endTime = task.getEndTime();
-        if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
-            return;
-        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
-            throw new NoTimeException("time is already occupied with another task");
-        }
+//        ZonedDateTime startTime = task.getStartTime();
+//        ZonedDateTime endTime = task.getEndTime();
+//        if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
+//            return;
+//        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
+//            throw new NoTimeException("time is already occupied with another task");
+//        }
     }
 }

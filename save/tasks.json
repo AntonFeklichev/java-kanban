@@ -1,1 +1,19 @@
-[]
+{
+  "1": {
+    "name": "task",
+    "desc": "desc of task",
+    "id": 1,
+    "status": "NEW",
+    "type": "TASK",
+    "startTime": "null",
+    "duration": 0,
+    "endTime": "null"
+  },
+  "2": {
+    "id": 2,
+    "type": "TASK",
+    "startTime": "2022-07-21T21:14:55.613591+04:00[Europe/Samara]",
+    "duration": 10,
+    "endTime": "2022-07-21T21:24:55.613591+04:00[Europe/Samara]"
+  }
+}

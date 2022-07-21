@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import manager.Managers;
 import manager.TaskManager;
+import tasks.Task;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,6 +43,9 @@ public class HttpTaskServer {
             String response = "";
             String path = exchange.getRequestURI().getPath();
             String method = exchange.getRequestMethod();
+            System.out.println("handling request: ");
+            System.out.println(path);
+            System.out.println(method);
             switch (path) {
                 case "/tasks":
                     switch (method) {

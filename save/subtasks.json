@@ -1,13 +1,1 @@
-[
-  {
-    "duration": 10,
-    "epicId": 1,
-    "name": "updated",
-    "startTime": "2022-07-23T12:00:25.694334+04:00[Europe/Samara]",
-    "endTime": "2022-07-23T12:10:25.694334+04:00[Europe/Samara]",
-    "id": 2,
-    "type": "SUBTASK",
-    "desc": "desc of subtask",
-    "status": "DONE"
-  }
-]
+{}

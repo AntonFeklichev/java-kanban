@@ -1,5 +1,9 @@
 package manager.fileBacked;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import gsonTypeAdapters.ZonedDateTimeAdapter;
 import manager.exceptions.ManagerSaveException;
 import manager.inMemory.InMemoryTaskManager;
 import org.json.JSONArray;
@@ -8,6 +12,7 @@ import tasks.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
@@ -20,11 +25,25 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private static final String SAVE_EPICS_PATH = "save/epics.json";
     private static final String SAVE_SUBTASKS_PATH = "save/subtasks.json";
     private static final String SAVE_HISTORY_PATH = "save/history.json";
+    private static Gson gson;
+
     public FileBackedTaskManager() {
+        super();
+        gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
+                .create();
         loadTasksFromFile(Path.of(SAVE_TASKS_PATH));
-        loadEpicsFromFile(Path.of(SAVE_EPICS_PATH));
-        loadSubtasksFromFile(Path.of(SAVE_SUBTASKS_PATH));
-        loadHistoryFromFile(Path.of(SAVE_HISTORY_PATH));
+//        loadEpicsFromFile(Path.of(SAVE_EPICS_PATH));
+//        loadSubtasksFromFile(Path.of(SAVE_SUBTASKS_PATH));
+//        loadHistoryFromFile(Path.of(SAVE_HISTORY_PATH));
+
+    }
+
+    private static Map<Integer, Task> gsonStringToTaskMap(String jsonString) {
+        Type type = new TypeToken<Map<Integer, Task>>() {
+        }.getType();
+        return gson.fromJson(jsonString, type);
     }
 
     private static Map<Integer, Task> jsonStringToTaskMap(String jsonString) {
@@ -155,12 +174,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return new JSONArray(map.values()).toString();
     }
 
+    private String mapToGsonString(Map<Integer, ? extends Task> map){
+        return gson.toJson(map);
+    }
+
     private void save(Map<Integer, ? extends Task> map, String savePath) {
         try {
             Path save = Path.of(savePath);
             if (!Files.exists(save)) Files.createFile(save);
             try (PrintWriter saver = new PrintWriter(savePath)) {
-                saver.write(mapToJsonString(map));
+                saver.write(mapToGsonString(map));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -188,7 +211,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void loadTasksFromFile(Path path) {
         try {
             String jsonString = Files.readString(path);
-            setTasks(jsonStringToTaskMap(jsonString));
+            setTasks(gsonStringToTaskMap(jsonString));
         } catch (IOException e) {
             throw new ManagerSaveException("Ошибка при загрузке задач из файла");
         }

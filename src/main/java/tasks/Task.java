@@ -9,7 +9,6 @@ import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Task implements Comparable<Task> {
     private String name;
     private String desc;
@@ -19,11 +18,17 @@ public class Task implements Comparable<Task> {
     private ZonedDateTime startTime;
     private long duration;
     private ZonedDateTime endTime;
+    private static final TaskTypes TYPE = TaskTypes.TASK;
 
     public Task(ZonedDateTime startTime, long duration) {
         this.startTime = startTime;
         this.duration = duration;
+        type = TaskTypes.TASK;
         endTime = calculateEndTime();
+    }
+
+    public Task(){
+        setType(TaskTypes.TASK);
     }
 
     public Task(String name, String desc, Status status) {
