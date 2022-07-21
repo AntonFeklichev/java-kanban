@@ -1,1 +1,35 @@
-{}
+{
+  "5": {
+    "epicId": 3,
+    "name": "go to surgeon",
+    "desc": "get a surgeon consultation",
+    "id": 5,
+    "status": "NEW",
+    "type": "SUBTASK",
+    "startTime": "2022-07-23T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-23T22:30:24.965871+04:00[Europe/Samara]"
+  },
+  "6": {
+    "epicId": 3,
+    "name": "go to dermatologist",
+    "desc": "get a dermatologist consultation",
+    "id": 6,
+    "status": "NEW",
+    "type": "SUBTASK",
+    "startTime": "2022-07-24T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-24T22:30:24.965871+04:00[Europe/Samara]"
+  },
+  "7": {
+    "epicId": 4,
+    "name": "find clients",
+    "desc": "use profi.ru",
+    "id": 7,
+    "status": "NEW",
+    "type": "SUBTASK",
+    "startTime": "2022-07-25T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-25T22:30:24.965871+04:00[Europe/Samara]"
+  }
+}

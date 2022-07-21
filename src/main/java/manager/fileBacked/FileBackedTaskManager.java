@@ -1,289 +1,222 @@
 package manager.fileBacked;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import gsonTypeAdapters.ZonedDateTimeAdapter;
 import manager.exceptions.ManagerSaveException;
 import manager.inMemory.InMemoryTaskManager;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import tasks.*;
+import tasks.Epic;
+import tasks.Subtask;
+import tasks.Task;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
-    private static final String SAVE_TASKS_PATH = "save/tasks.json";
-    private static final String SAVE_EPICS_PATH = "save/epics.json";
-    private static final String SAVE_SUBTASKS_PATH = "save/subtasks.json";
-    private static final String SAVE_HISTORY_PATH = "save/history.json";
-    private static Gson gson;
 
-    public FileBackedTaskManager() {
-        super();
-        gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
-                .create();
-        loadTasksFromFile(Path.of(SAVE_TASKS_PATH));
-//        loadEpicsFromFile(Path.of(SAVE_EPICS_PATH));
-//        loadSubtasksFromFile(Path.of(SAVE_SUBTASKS_PATH));
-//        loadHistoryFromFile(Path.of(SAVE_HISTORY_PATH));
+    private Gson gson;
+    private String saveDir = "save";
 
+    public FileBackedTaskManager(String saveDir) {
+        this.saveDir = saveDir;
+        gson = createGson();
+        loadData();
     }
 
-    private static Map<Integer, Task> gsonStringToTaskMap(String jsonString) {
-        Type type = new TypeToken<Map<Integer, Task>>() {
-        }.getType();
-        return gson.fromJson(jsonString, type);
+    private Gson createGson() {
+        return gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter()).create();
     }
 
-    private static Map<Integer, Task> jsonStringToTaskMap(String jsonString) {
-        Map<Integer, Task> taskMap = new HashMap<>();
-        JSONArray jsonArray = new JSONArray(jsonString);
-        for (Object element : jsonArray) {
-            JSONObject jsonElement = (JSONObject) element;
-            Task task = taskFromJson(jsonElement);
-            taskMap.put(task.getId(), task);
+    private void loadData() {
+        loadTasks();
+        loadEpics();
+        loadSubtasks();
+        loadHistory();
+    }
+
+    private void loadTasks() {
+        String path = saveDir + "/tasks.json";
+        try {
+            if (!Files.exists(Path.of(path))) return;
+            try (Reader reader = new FileReader(path)) {
+                Type type = new TypeToken<Map<Integer, Task>>() {
+                }.getType();
+                Map<Integer, Task> loadedTasks = gson.fromJson(reader, type);
+                setTasks(loadedTasks == null ? new HashMap<>() : loadedTasks);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return taskMap;
     }
 
-    private static Map<Integer, Epic> jsonStringToEpicMap(String jsonString) {
-        Map<Integer, Epic> epicMap = new HashMap<>();
-        JSONArray jsonEpics = new JSONArray(jsonString);
-        for (Object element : jsonEpics) {
-            JSONObject jsonEpic = (JSONObject) element;
-            Epic epic = epicFromJson(jsonEpic);
-            epicMap.put(epic.getId(), epic);
+    private void loadEpics() {
+        String path = saveDir + "/epics.json";
+        try {
+            if (!Files.exists(Path.of(path))) return;
+            try (Reader reader = new FileReader(path)) {
+                Type type = new TypeToken<Map<Integer, Epic>>() {
+                }.getType();
+                Map<Integer, Epic> loadedEpics = gson.fromJson(reader, type);
+                setEpics(loadedEpics == null ? new HashMap<>() : loadedEpics);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return epicMap;
     }
 
-    private static Map<Integer, Subtask> jsonStringToSubtaskMap(String jsonString) {
-        Map<Integer, Subtask> subtaskMap = new HashMap<>();
-        JSONArray jsonArray = new JSONArray(jsonString);
-        for (Object element : jsonArray) {
-            JSONObject jsonSubtask = (JSONObject) element;
-            Subtask subtask = subtaskFromJson(jsonSubtask);
-            subtaskMap.put(subtask.getId(), subtask);
+    private void loadSubtasks() {
+        String path = saveDir + "/subtasks.json";
+        try {
+            if (!Files.exists(Path.of(path))) return;
+            try (Reader reader = new FileReader(path)) {
+                Type type = new TypeToken<Map<Integer, Subtask>>() {
+                }.getType();
+                Map<Integer, Subtask> loadedSubtasks = gson.fromJson(reader, type);
+                setSubtasks(loadedSubtasks == null ? new HashMap<>() : loadedSubtasks);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return subtaskMap;
     }
 
-    private static Task taskFromJson(JSONObject jsonTask) {
-        Task newTask = new Task();
-        Optional.ofNullable(jsonTask.getString("name")).ifPresent(newTask::setName);
-        Optional.ofNullable(jsonTask.getString("desc")).ifPresent(newTask::setDesc);
-        Optional.ofNullable(jsonTask.getInt("id")).ifPresent(newTask::setId);
-        Optional.ofNullable(jsonTask.getEnum(Status.class, "status")).ifPresent(newTask::setStatus);
-        Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("startTime"))).ifPresent(newTask::setStartTime);
-        Optional.ofNullable(jsonTask.getLong("duration")).ifPresent(newTask::setDuration);
-        Optional.ofNullable(ZonedDateTime.parse(jsonTask.getString("endTime"))).ifPresent(newTask::setEndTime);
-        return newTask;
+    private void loadHistory() {
+        String path = saveDir + "/history.json";
+        try {
+            if (!Files.exists(Path.of(path))) return;
+            try (Reader reader = new FileReader(path)) {
+                JsonArray historyArray = JsonParser.parseReader(reader).getAsJsonArray();
+                for (JsonElement element : historyArray) {
+                    if (element.getAsJsonObject().get("type") == null) {
+                        Task def = gson.fromJson(element, Task.class);
+                        getHistoryManager().add(def);
+                    } else {
+
+                        switch (element.getAsJsonObject().get("type").getAsString()) {
+                            case "TASK":
+                                Task task = gson.fromJson(element, Task.class);
+                                getHistoryManager().add(task);
+                                break;
+                            case "EPIC":
+                                Epic epic = gson.fromJson(element, Epic.class);
+                                getHistoryManager().add(epic);
+                                break;
+                            case "SUBTASK":
+                                Subtask subtask = gson.fromJson(element, Subtask.class);
+                                getHistoryManager().add(subtask);
+                                break;
+                            default:
+                                Task def = gson.fromJson(element, Task.class);
+                                getHistoryManager().add(def);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static Epic epicFromJson(JSONObject jsonEpic) {
-        Epic newEpic = new Epic();
-        Optional.ofNullable(jsonEpic.getString("name")).ifPresent(newEpic::setName);
-        Optional.ofNullable(jsonEpic.getString("desc")).ifPresent(newEpic::setDesc);
-        Optional.ofNullable(jsonEpic.getInt("id")).ifPresent(newEpic::setId);
-        Optional.ofNullable(jsonEpic.getEnum(Status.class, "status")).ifPresent(newEpic::setStatus);
-        Optional.ofNullable(jsonEpic.getJSONArray("subtasks")).ifPresent(subtasks -> subtasks.forEach(subtask -> newEpic.getSubtasks().add(subtaskFromJson((JSONObject) subtask))));
-        newEpic.setStartTime(newEpic.calculateStartTime());
-        newEpic.setDuration(newEpic.calculateDuration());
-        newEpic.setEndTime(newEpic.calculateEndTime());
-        return newEpic;
+    private void saveData() {
+        saveTasks();
+        saveEpics();
+        saveSubtasks();
+        saveHistory();
     }
 
-    private static Subtask subtaskFromJson(JSONObject jsonSubtask) {
-        Subtask newSubtask = new Subtask();
-        Optional.ofNullable(jsonSubtask.getString("name")).ifPresent(newSubtask::setName);
-        Optional.ofNullable(jsonSubtask.getString("desc")).ifPresent(newSubtask::setDesc);
-        Optional.ofNullable(jsonSubtask.getInt("id")).ifPresent(newSubtask::setId);
-        Optional.ofNullable(jsonSubtask.getEnum(Status.class, "status")).ifPresent(newSubtask::setStatus);
-        Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("startTime"))).ifPresent(newSubtask::setStartTime);
-        Optional.ofNullable(ZonedDateTime.parse(jsonSubtask.getString("endTime"))).ifPresent(newSubtask::setEndTime);
-        Optional.ofNullable(jsonSubtask.getInt("epicId")).ifPresent(newSubtask::setEpicId);
-        return newSubtask;
+    private void saveTasks() {
+        String path = saveDir + "/tasks.json";
+        try {
+            if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
+            try (Writer writer = new FileWriter(path)) {
+                String jsonTasks = gson.toJson(getTasks());
+                writer.write(jsonTasks);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("error while saving tasks");
+        }
+    }
+
+    private void saveEpics() {
+        String path = saveDir + "/epics.json";
+        try {
+            if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
+            try (Writer writer = new FileWriter(path)) {
+                String jsonEpics = gson.toJson(getEpics());
+                writer.write(jsonEpics);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("error while saving epics");
+        }
+    }
+
+    private void saveSubtasks() {
+        String path = saveDir + "/subtasks.json";
+        try {
+            if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
+            try (Writer writer = new FileWriter(path)) {
+                String jsonSubtasks = gson.toJson(getSubtasks());
+                writer.write(jsonSubtasks);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("error while saving subtasks");
+        }
+    }
+
+    public void saveHistory() {
+        String path = saveDir + "/history.json";
+        try {
+            if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
+            try (Writer writer = new FileWriter(path)) {
+                String jsonHistory = gson.toJson(getHistory());
+                writer.write(jsonHistory);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("error while saving history");
+        }
     }
 
     @Override
     public void addTask(Task task) {
         super.addTask(task);
-        save();
-    }
-
-    @Override
-    public void addSubtask(Subtask subtask) {
-        super.addSubtask(subtask);
-        save();
+        saveTasks();
     }
 
     @Override
     public void addEpic(Epic epic) {
         super.addEpic(epic);
-        save();
+        saveEpics();
     }
 
     @Override
-    public void updateTask(Task task) {
-        super.updateTask(task);
-        save();
-    }
-
-    @Override
-    public void updateSubtask(Subtask subtask) {
-        super.updateSubtask(subtask);
-        save();
-    }
-
-    @Override
-    public void updateEpic(Epic epic) {
-        super.updateEpic(epic);
-        save();
-    }
-
-    @Override
-    public void removeTaskById(int id) {
-        super.removeTaskById(id);
-        save();
-    }
-
-    @Override
-    public void removeEpicById(int epicId) {
-        super.removeEpicById(epicId);
-        save();
-    }
-
-    @Override
-    public void removeSubtaskById(int subtaskId) {
-        super.removeSubtaskById(subtaskId);
-        save();
-    }
-
-    private String mapToJsonString(Map<Integer, ? extends Task> map) {
-        return new JSONArray(map.values()).toString();
-    }
-
-    private String mapToGsonString(Map<Integer, ? extends Task> map){
-        return gson.toJson(map);
-    }
-
-    private void save(Map<Integer, ? extends Task> map, String savePath) {
-        try {
-            Path save = Path.of(savePath);
-            if (!Files.exists(save)) Files.createFile(save);
-            try (PrintWriter saver = new PrintWriter(savePath)) {
-                saver.write(mapToGsonString(map));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveHistory() {
-        try {
-            Path save = Path.of(SAVE_HISTORY_PATH);
-            if (!Files.exists(save)) Files.createFile(save);
-            try (PrintWriter saver = new PrintWriter(SAVE_HISTORY_PATH)) {
-                saver.write(new JSONArray(getHistory()).toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void save() {
-        save(getTasks(), SAVE_TASKS_PATH);
-        save(getEpics(), SAVE_EPICS_PATH);
-        save(getSubtasks(), SAVE_SUBTASKS_PATH);
-    }
-
-    public void loadTasksFromFile(Path path) {
-        try {
-            String jsonString = Files.readString(path);
-            setTasks(gsonStringToTaskMap(jsonString));
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка при загрузке задач из файла");
-        }
-    }
-
-    public void loadEpicsFromFile(Path path) {
-        try {
-            String jsonString = Files.readString(path);
-            setEpics(jsonStringToEpicMap(jsonString));
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка при загрузке эпиков из файла");
-        }
-    }
-
-    public void loadSubtasksFromFile(Path path) {
-        try {
-            String jsonString = Files.readString(path);
-            setSubtasks(jsonStringToSubtaskMap(jsonString));
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка при загрузке подзадач из файла");
-        }
-    }
-
-    public void loadHistoryFromFile(Path path) {
-        try {
-            String jsonString = Files.readString(path);
-            JSONArray jsonArray = new JSONArray(jsonString);
-            for (Object element : jsonArray) {
-                JSONObject jsonElement = (JSONObject) element;
-                if (jsonElement.getEnum(TaskTypes.class, "type").equals(TaskTypes.TASK))
-                    super.getHistoryManager().add(taskFromJson(jsonElement));
-                else if (jsonElement.getEnum(TaskTypes.class, "type").equals(TaskTypes.EPIC))
-                    super.getHistoryManager().add(epicFromJson(jsonElement));
-                else if (jsonElement.getEnum(TaskTypes.class, "type").equals(TaskTypes.SUBTASK))
-                    super.getHistoryManager().add(subtaskFromJson(jsonElement));
-            }
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка при загрузке истории из файла");
-        }
-    }
-
-    @Override
-    public Map<Integer, Task> getTasks() {
-        return super.getTasks();
-    }
-
-    @Override
-    public Map<Integer, Epic> getEpics() {
-        return super.getEpics();
-    }
-
-    @Override
-    public Map<Integer, Subtask> getSubtasks() {
-        return super.getSubtasks();
+    public void addSubtask(Subtask subtask) {
+        super.addSubtask(subtask);
+        saveSubtasks();
+        saveEpics();
     }
 
     @Override
     public void removeAllTasks() {
         super.removeAllTasks();
-        save();
-    }
-
-    @Override
-    public void removeAllSubtasks() {
-        super.removeAllSubtasks();
-        save();
+        saveTasks();
     }
 
     @Override
     public void removeAllEpics() {
         super.removeAllEpics();
-        save();
+        saveEpics();
+        saveSubtasks();
+    }
+
+    @Override
+    public void removeAllSubtasks() {
+        super.removeAllSubtasks();
+        saveSubtasks();
+        saveEpics();
     }
 
     @Override
@@ -294,6 +227,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
+    public Epic getEpicById(int id) {
+        Epic epic = super.getEpicById(id);
+        saveHistory();
+        return epic;
+    }
+
+    @Override
     public Subtask getSubtaskById(int id) {
         Subtask subtask = super.getSubtaskById(id);
         saveHistory();
@@ -301,9 +241,49 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Epic getEpicById(int id) {
-        Epic epic = super.getEpicById(id);
-        saveHistory();
-        return epic;
+    public void removeTaskById(int id) {
+        super.removeTaskById(id);
+        saveTasks();
     }
+
+    @Override
+    public void removeEpicById(int id) {
+        super.removeEpicById(id);
+        saveEpics();
+        saveSubtasks();
+    }
+
+    @Override
+    public void removeSubtaskById(int id) {
+        super.removeSubtaskById(id);
+        saveSubtasks();
+        saveEpics();
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        super.updateTask(task);
+        saveTasks();
+    }
+
+    @Override
+    public void updateSubtask(Subtask subtask) {
+        super.updateSubtask(subtask);
+        saveSubtasks();
+        saveEpics();
+    }
+
+    @Override
+    public void updateEpic(Epic epic) {
+        super.updateEpic(epic);
+        saveEpics();
+        saveSubtasks();
+    }
+
+    @Override
+    public void removeAll(){
+        super.removeAll();
+        saveData();
+    }
+
 }

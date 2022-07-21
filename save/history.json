@@ -1,25 +1,55 @@
 [
   {
-    "subtasks": [],
-    "id": 3,
-    "type": "EPIC",
-    "startTime": "null",
-    "duration": 0,
-    "endTime": "null"
-  },
-  {
-    "id": 2,
-    "type": "TASK",
-    "startTime": "2022-07-21T21:14:55.613591+04:00[Europe/Samara]",
-    "duration": 10,
-    "endTime": "2022-07-21T21:24:55.613591+04:00[Europe/Samara]"
-  },
-  {
-    "name": "task",
-    "desc": "desc of task",
+    "name": "do homework",
+    "desc": "do math",
     "id": 1,
     "status": "NEW",
     "type": "TASK",
+    "startTime": "2022-07-21T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-21T22:30:24.965871+04:00[Europe/Samara]"
+  },
+  {
+    "epicId": 3,
+    "name": "go to surgeon",
+    "desc": "get a surgeon consultation",
+    "id": 5,
+    "status": "NEW",
+    "type": "SUBTASK",
+    "startTime": "2022-07-23T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-23T22:30:24.965871+04:00[Europe/Samara]"
+  },
+  {
+    "subtasks": [
+      {
+        "epicId": 3,
+        "name": "go to surgeon",
+        "desc": "get a surgeon consultation",
+        "id": 5,
+        "status": "NEW",
+        "type": "SUBTASK",
+        "startTime": "2022-07-23T22:10:24.965871+04:00[Europe/Samara]",
+        "duration": 20,
+        "endTime": "2022-07-23T22:30:24.965871+04:00[Europe/Samara]"
+      },
+      {
+        "epicId": 3,
+        "name": "go to dermatologist",
+        "desc": "get a dermatologist consultation",
+        "id": 6,
+        "status": "NEW",
+        "type": "SUBTASK",
+        "startTime": "2022-07-24T22:10:24.965871+04:00[Europe/Samara]",
+        "duration": 20,
+        "endTime": "2022-07-24T22:30:24.965871+04:00[Europe/Samara]"
+      }
+    ],
+    "name": "take care about health",
+    "desc": "visit doctors",
+    "id": 3,
+    "status": "NEW",
+    "type": "EPIC",
     "startTime": "null",
     "duration": 0,
     "endTime": "null"

@@ -37,6 +37,10 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         subtask = new Subtask("subtask", "desc of subtask", Status.NEW, epic, 3, now.plusDays(1), defaultDuration);
         subtask.setEpicId(epic.getId());
     }
+    @BeforeEach
+    public void cleanUp(){
+        manager.removeAll();
+    }
 
     public void addDefaultTasks() {
         manager.addTask(task);

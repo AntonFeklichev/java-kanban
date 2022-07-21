@@ -54,4 +54,6 @@ public interface TaskManager {
     List<Task> getPrioritizedTasks();
 
     Map<Integer, Task> getTasksOfAllTypes();
+
+    void removeAll();
 }

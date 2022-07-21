@@ -5,9 +5,7 @@ import manager.fileBacked.FileBackedTaskManager;
 public class HttpTaskManager extends FileBackedTaskManager {
 
 
-
-    public HttpTaskManager(String url){
-
+    public HttpTaskManager(String saveDir) {
+        super(saveDir);
     }
-
 }

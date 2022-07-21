@@ -236,12 +236,19 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void checkTimeIntersection(Task task) {
-//        ZonedDateTime startTime = task.getStartTime();
-//        ZonedDateTime endTime = task.getEndTime();
-//        if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
-//            return;
-//        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
-//            throw new NoTimeException("time is already occupied with another task");
-//        }
+        ZonedDateTime startTime = task.getStartTime();
+        ZonedDateTime endTime = task.getEndTime();
+        if (startTime == null || endTime == null || startTime.isAfter(endTime)) {
+            return;
+        } else if (getPrioritizedTasks().stream().anyMatch(t -> (t.getStartTime().isAfter(startTime) || t.getStartTime().isEqual(startTime)) && (t.getEndTime().isBefore(endTime) || t.getEndTime().isEqual(endTime)))) {
+            throw new NoTimeException("time is already occupied with another task");
+        }
+    }
+    @Override
+    public void removeAll(){
+        removeAllTasks();
+        removeAllEpics();
+        removeAllSubtasks();
+        getHistoryManager().removeAll();
     }
 }

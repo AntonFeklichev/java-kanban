@@ -35,6 +35,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
+    @Override
+    public void removeAll() {
+        history.clear();
+    }
+
     private static class CustomLinkedList<E> {
         private Node<E> head;
         private Node<E> tail;
@@ -84,6 +89,13 @@ public class InMemoryHistoryManager implements HistoryManager {
                 }
 
                 size--;
+            }
+        }
+        public void clear(){
+            Node<E> head = this.head;
+            while (head != null){
+                removeNode(head);
+                head = this.head;
             }
         }
     }

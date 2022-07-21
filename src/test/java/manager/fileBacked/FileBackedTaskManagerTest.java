@@ -1,12 +1,10 @@
 package manager.fileBacked;
 
 import manager.TaskManagerTest;
-import manager.fileBacked.FileBackedTaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.*;
 
-import java.nio.file.Path;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 
@@ -28,13 +26,12 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
 
     @Override
     public FileBackedTaskManager createManager() {
-        return new FileBackedTaskManager();
+        return new FileBackedTaskManager("save");
     }
 
     @BeforeEach
     public void initManagersAndTime() {
         manager1 = createManager();
-        manager2 = createManager();
         now = ZonedDateTime.now();
         defaultDuration = 20;
     }
@@ -69,16 +66,15 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     @Test
     public void shouldSaveTasksToFile() {
         initTasks();
-        manager2.loadTasksFromFile(Path.of("save/tasks.json"));
+        manager2 = createManager();
         assertEquals(manager1.getTasks(), manager2.getTasks(), "saved and loaded tasks dont match");
     }
 
     @Test
     public void shouldSaveEpicsWithSubtasks() {
         initEpicsAndSubtasks();
-        manager2.loadEpicsFromFile(Path.of("save/epics.json"));
+        manager2 = createManager();
         assertEquals(manager1.getEpics(), manager2.getEpics(), "saved and loaded epics do not match");
-        manager2.loadSubtasksFromFile(Path.of("save/subtasks.json"));
         assertEquals(manager1.getSubtasks(), manager2.getSubtasks(), "saved and loaded subtasks do not match");
     }
 
@@ -90,7 +86,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
         manager1.getTaskById(1);
         manager1.getSubtaskById(5);
         manager1.getEpicById(3);
-        manager2.loadHistoryFromFile(Path.of("save/history.json"));
+        manager2 = createManager();
         assertEquals(manager1.getHistory(), manager2.getHistory(), "saved and loaded histories do not match");
     }
 }

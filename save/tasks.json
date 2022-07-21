@@ -1,19 +1,22 @@
 {
   "1": {
-    "name": "task",
-    "desc": "desc of task",
+    "name": "do homework",
+    "desc": "do math",
     "id": 1,
     "status": "NEW",
     "type": "TASK",
-    "startTime": "null",
-    "duration": 0,
-    "endTime": "null"
+    "startTime": "2022-07-21T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-21T22:30:24.965871+04:00[Europe/Samara]"
   },
   "2": {
+    "name": "go to the grocery",
+    "desc": "buy spaghetti and bacon",
     "id": 2,
+    "status": "NEW",
     "type": "TASK",
-    "startTime": "2022-07-21T21:14:55.613591+04:00[Europe/Samara]",
-    "duration": 10,
-    "endTime": "2022-07-21T21:24:55.613591+04:00[Europe/Samara]"
+    "startTime": "2022-07-22T22:10:24.965871+04:00[Europe/Samara]",
+    "duration": 20,
+    "endTime": "2022-07-22T22:30:24.965871+04:00[Europe/Samara]"
   }
 }
