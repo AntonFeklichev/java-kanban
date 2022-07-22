@@ -37,14 +37,17 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         subtask = new Subtask("subtask", "desc of subtask", Status.NEW, epic, 3, now.plusDays(1), defaultDuration);
         subtask.setEpicId(epic.getId());
     }
+
     @BeforeEach
-    public void cleanUp(){
+    public void cleanUp() {
         manager.removeAll();
     }
 
     public void addDefaultTasks() {
         manager.addTask(task);
         manager.addEpic(epic);
+        System.out.println(manager.getEpics());
+        System.out.println(subtask);
         manager.addSubtask(subtask);
     }
 
@@ -77,10 +80,12 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void shouldGenerateAndSetTaskId() {
+        addDefaultTasks();
         manager.generateAndSetTaskId(task);
         int oldId = task.getId();
         manager.generateAndSetTaskId(task);
         int newId = task.getId();
+        assertEquals(newId - oldId, 1);
         assertNotEquals(newId, oldId, "id does not change after adding a new task");
     }
 
@@ -146,9 +151,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldUpdateTask() {
         manager.addTask(task);
-        Task oldTask = manager.getTaskById(1);
-        manager.updateTask(new Task("updated", "desc of task", Status.DONE, 1, now.plusDays(123), defaultDuration));
-        Task updatedTask = manager.getTaskById(1);
+        Task oldTask = manager.getTaskById(0);
+        manager.updateTask(new Task("updated", "desc of task", Status.DONE, oldTask.getId(), now.plusDays(123), defaultDuration));
+        Task updatedTask = manager.getTaskById(0);
         assertNotEquals(oldTask, updatedTask, "task was not updated");
     }
 
@@ -198,7 +203,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    public void shouldReturnHistoryInCorrectOrder(){
+    public void shouldReturnHistoryInCorrectOrder() {
         addDefaultTasks();
         manager.getTaskById(task.getId());
         manager.getTaskById(task.getId());

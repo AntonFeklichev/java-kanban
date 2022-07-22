@@ -20,7 +20,6 @@ public class Go {
         Task task = new Task("task", "desc of task", Status.NEW, 1);
         Task anotherTask = new Task(ZonedDateTime.now(), 10);
         manager.addTask(task);
-
         manager.addTask(anotherTask);
         manager.getTaskById(1);
         Epic epic = new Epic();

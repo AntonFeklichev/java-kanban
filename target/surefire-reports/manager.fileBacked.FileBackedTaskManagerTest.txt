@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: manager.fileBacked.FileBackedTaskManagerTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.27 s <<< FAILURE! - in manager.fileBacked.FileBackedTaskManagerTest
+shouldUpdateTask  Time elapsed: 0.012 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "tasks.Task.getId()" because "oldTask" is null
+
+shouldRemoveAllSubtasks  Time elapsed: 0.012 s  <<< ERROR!
+manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
+
+shouldReturnPrioritizedTasks  Time elapsed: 0.01 s  <<< ERROR!
+manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
+
+shouldGenerateAndSetTaskId  Time elapsed: 0.006 s  <<< ERROR!
+manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
+

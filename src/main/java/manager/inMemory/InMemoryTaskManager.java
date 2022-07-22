@@ -14,12 +14,11 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    private Set<Task> sorted = new TreeSet<>();
     private HistoryManager historyManager = Managers.getDefaultHistory();
-    protected int idForNewTasks = 1;
-    private Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
-    private Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected int idForNewTasks = 0;
+    private Map<Integer, Task> tasks;
+    private Map<Integer, Epic> epics;
+    private Map<Integer, Subtask> subtasks;
 
     public InMemoryTaskManager() {
         tasks = new HashMap<>();
@@ -56,13 +55,11 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
-        sorted.removeAll(tasks.values());
         tasks.clear();
     }
 
     @Override
     public void removeAllSubtasks() {
-        sorted.removeAll(subtasks.values());
         subtasks.clear();
     }
 
@@ -125,8 +122,6 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
             checkTimeIntersection(task);
-            sorted.remove(tasks.get(task.getId()));
-            sorted.add(task);
             tasks.replace(task.getId(), task);
         }
     }
@@ -137,9 +132,7 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = epics.get(subtask.getEpicId());
             epic.getSubtasks().remove(subtask);
             epic.getSubtasks().add(subtask);
-            sorted.remove(subtasks.get(subtask.getId()));
             checkTimeIntersection(subtask);
-            sorted.add(subtask);
             subtasks.replace(subtask.getId(), subtask);
             epic.setStartTime(epic.calculateStartTime());
             epic.setDuration(epic.calculateDuration());
@@ -159,7 +152,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
-            sorted.remove(tasks.get(id));
             tasks.remove(id);
         } else {
             throw new InvalidIdException(String.format("task with id = %d does not exist", id));
@@ -187,7 +179,6 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setDuration(epic.calculateDuration());
             epic.setEndTime(epic.calculateEndTime());
             epic.setStatus(epic.calculateStatus());
-            sorted.remove(subtasks.get(subtaskId));
             subtasks.remove(subtaskId);
         } else {
             throw new InvalidIdException(String.format("subtask with id = %d does not exist", subtaskId));
@@ -211,6 +202,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getPrioritizedTasks() {
         List<Task> prioritized = new ArrayList<>();
+        Set<Task> sorted = new TreeSet<>();
         List<Task> timeIsNull = new ArrayList<>();
         Map<Integer, Task> tasksWithSubtasks = new HashMap<>();
         tasksWithSubtasks.putAll(tasks);
