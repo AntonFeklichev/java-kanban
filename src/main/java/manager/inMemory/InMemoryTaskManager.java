@@ -14,8 +14,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
+    protected int idForNewTasks = 1;
     private HistoryManager historyManager = Managers.getDefaultHistory();
-    protected int idForNewTasks = 0;
     private Map<Integer, Task> tasks;
     private Map<Integer, Epic> epics;
     private Map<Integer, Subtask> subtasks;
@@ -32,6 +32,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void setTasks(Map<Integer, Task> tasks) {
+        for (Task task : tasks.values()){
+            addTask(task);
+        }
         this.tasks = tasks;
     }
 
@@ -41,7 +44,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void setEpics(Map<Integer, Epic> epics) {
-        this.epics = epics;
+        for (Epic epic : epics.values()) {
+            addEpic(epic);
+        }
     }
 
     @Override
@@ -50,6 +55,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void setSubtasks(Map<Integer, Subtask> subtasks) {
+        for (Subtask subtask : subtasks.values()) {
+            addSubtask(subtask);
+        }
         this.subtasks = subtasks;
     }
 
@@ -93,6 +101,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task task) {
+        task.calculateEndTime();
         checkTimeIntersection(task);
         generateAndSetTaskId(task);
         tasks.put(task.getId(), task);

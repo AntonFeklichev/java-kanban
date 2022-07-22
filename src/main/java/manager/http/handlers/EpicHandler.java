@@ -1,9 +1,9 @@
 package manager.http.handlers;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.sun.net.httpserver.HttpExchange;
+import jdk.swing.interop.SwingInterOpUtils;
 import manager.TaskManager;
-import tasks.Task;
+import tasks.Epic;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 
-public class TaskHandler extends AbstractHandler {
-    public TaskHandler(TaskManager manager) {
+public class EpicHandler extends AbstractHandler {
+    public EpicHandler(TaskManager manager) {
         super(manager);
     }
 
@@ -32,20 +32,19 @@ public class TaskHandler extends AbstractHandler {
                         (map) -> {
                             if (map.containsKey("id")) {
                                 int id = Integer.parseInt(map.get("id"));
-                                response = gson.toJson(manager.getTaskById(id));
+                                response = gson.toJson(manager.getEpicById(id));
                                 rCode = 200;
                             }
                         },
                         () -> {
-                            response = gson.toJson(manager.getTasks());
+                            response = gson.toJson(manager.getEpics());
                             rCode = 200;
                         });
                 break;
             case "POST":
                 try (InputStream is = exchange.getRequestBody()) {
-                    Task task = gson.fromJson(new String(is.readAllBytes()), Task.class);
-                    task.setEndTime(task.calculateEndTime());
-                    manager.addTask(task);
+                    Epic epic = gson.fromJson(new String(is.readAllBytes()), Epic.class);
+                    manager.addEpic(epic);
                     rCode = 201;
                 }
                 break;
@@ -54,12 +53,12 @@ public class TaskHandler extends AbstractHandler {
                         (map) -> {
                             if (map.containsKey("id")) {
                                 int id = Integer.parseInt(map.get("id"));
-                                manager.removeTaskById(id);
+                                manager.removeEpicById(id);
                                 rCode = 202;
                             }
                         },
                         () -> {
-                            manager.removeAllTasks();
+                            manager.removeAllEpics();
                             rCode = 202;
                         });
                 break;

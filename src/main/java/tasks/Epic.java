@@ -1,7 +1,6 @@
 package tasks;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
@@ -27,7 +26,7 @@ public class Epic extends Task {
         setType(TaskTypes.EPIC);
     }
 
-    public Epic(){
+    public Epic() {
         setType(TaskTypes.EPIC);
     }
 
@@ -58,8 +57,10 @@ public class Epic extends Task {
     @Override
     public ZonedDateTime calculateEndTime() {
         try {
-            Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
-            return calculated.orElse(getEndTime());
+            if (hasSubtasks()) {
+                Optional<ZonedDateTime> calculated = subtasks.stream().map(Subtask::getEndTime).max(ChronoZonedDateTime::compareTo);
+                return calculated.orElse(getEndTime());
+            } else return getEndTime();
         } catch (NullPointerException ex) {
             return getEndTime();
         }
@@ -118,6 +119,10 @@ public class Epic extends Task {
             return super.equals(obj) && subtasks.equals(otherEpic.getSubtasks());
         }
         return false;
+    }
+
+    private boolean hasSubtasks() {
+        return subtasks != null && !subtasks.isEmpty();
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="manager.fileBacked.FileBackedTaskManagerTest" time="0.27" tests="20" errors="4" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="manager.fileBacked.FileBackedTaskManagerTest" time="0.338" tests="21" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter13064264759712338827.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-22T22-44-47_456-jvmRun1 surefire3247983059192760252tmp surefire_014007482787895467269tmp"/>
+    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter3140841611994394670.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-23T15-57-31_920-jvmRun1 surefire17062020089727694671tmp surefire_09654595628957187055tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/boi/.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar:/Users/boi/.m2/repository/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter13064264759712338827.jar"/>
+    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter3140841611994394670.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="18.0.1.1+2-6"/>
@@ -55,45 +55,25 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="shouldAddNewEpic" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.068"/>
-  <testcase name="shouldAddNewTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.008"/>
-  <testcase name="shouldUpdateEpic" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.018"/>
-  <testcase name="shouldUpdateTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012">
-    <error message="Cannot invoke &quot;tasks.Task.getId()&quot; because &quot;oldTask&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke "tasks.Task.getId()" because "oldTask" is null
-</error>
-  </testcase>
+  <testcase name="shouldAddNewEpic" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.09"/>
+  <testcase name="shouldAddNewTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
+  <testcase name="shouldUpdateEpic" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.013"/>
+  <testcase name="shouldUpdateTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
   <testcase name="shouldRemoveAllEpics" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.011"/>
-  <testcase name="shouldRemoveAllTasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
-  <testcase name="shouldRemoveAllSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{3=Epic{name='epic', desc='desc of epic', id=3, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.323834+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.323834+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldReturnPrioritizedTasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.01">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{3=Epic{name='epic', desc='desc of epic', id=3, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.336688+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.336688+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldRemoveEpicWithItsSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
-  <testcase name="shouldUpdateSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
-  <testcase name="shouldRemoveTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.008"/>
-  <testcase name="shouldGenerateAndSetTaskId" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.006">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.378563+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.378563+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
+  <testcase name="shouldRemoveAllTasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
+  <testcase name="shouldRemoveAllSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.014"/>
+  <testcase name="shouldReturnPrioritizedTasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
+  <testcase name="shouldRemoveEpicWithItsSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.01"/>
+  <testcase name="shouldUpdateSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.013"/>
+  <testcase name="shouldRemoveTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
+  <testcase name="shouldGenerateAndSetTaskId" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.008"/>
   <testcase name="shouldThrowNoTimeExceptionWhenAddingTimeIntersectingTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.006"/>
-  <testcase name="shouldThrowNoTimeExceptionWhenAddingDuplicateTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.005"/>
-  <testcase name="shouldReturnHistoryInCorrectOrder" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
-  <testcase name="shouldAddNewSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.01"/>
-  <testcase name="shouldRemoveSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
-  <testcase name="shouldSaveEpicsWithSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
-  <testcase name="shouldSaveTasksToFile" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.009"/>
-  <testcase name="shouldSaveHistory" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.013"/>
+  <testcase name="shouldThrowNoTimeExceptionWhenAddingDuplicateTask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.006"/>
+  <testcase name="shouldReturnHistoryInCorrectOrder" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.011"/>
+  <testcase name="shouldAddNewSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.008"/>
+  <testcase name="shouldRemoveSubtask" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.012"/>
+  <testcase name="shouldSaveEpicsWithSubtasks2" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.016"/>
+  <testcase name="shouldSaveEpicsWithSubtasks" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.016"/>
+  <testcase name="shouldSaveTasksToFile" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.013"/>
+  <testcase name="shouldSaveHistory" classname="manager.fileBacked.FileBackedTaskManagerTest" time="0.024"/>
 </testsuite>

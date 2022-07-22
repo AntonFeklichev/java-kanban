@@ -18,5 +18,6 @@
 /Users/boi/Desktop/java-kanban/src/main/java/manager/http/handlers/AbstractHandler.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/history/HistoryManager.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/inMemory/InMemoryTaskManager.java
+/Users/boi/Desktop/java-kanban/src/main/java/manager/http/handlers/EpicHandler.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/exceptions/InvalidIdException.java
 /Users/boi/Desktop/java-kanban/src/main/java/manager/fileBacked/FileBackedTaskManager.java

@@ -7,6 +7,7 @@ import tasks.*;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,7 +31,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     }
 
     @BeforeEach
-    public void initManagersAndTime() {
+    public void initManagerAndTime() {
         manager1 = createManager();
         now = ZonedDateTime.now();
         defaultDuration = 20;
@@ -73,13 +74,25 @@ public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskMan
     @Test
     public void shouldSaveEpicsWithSubtasks() {
         initEpicsAndSubtasks();
-        manager2 = createManager();
-        assertEquals(manager1.getEpics(), manager2.getEpics(), "saved and loaded epics do not match");
-        assertEquals(manager1.getSubtasks(), manager2.getSubtasks(), "saved and loaded subtasks do not match");
+        Map<Integer, Epic> epics1 = manager1.getEpics();
+        manager1.removeAll();
+        manager1.loadData();
+        Map<Integer, Epic> epics2 = manager1.getEpics();
+        assertEquals(epics1, epics2, "saved and loaded epics do not match");
     }
 
     @Test
-    public void shouldSaveHistory(){
+    public void shouldSaveEpicsWithSubtasks2() {
+        initEpicsAndSubtasks();
+        manager2 = new FileBackedTaskManager();
+        manager2.setEpics(manager1.getEpics());
+        manager2.setSubtasks(manager1.getSubtasks());
+        assertEquals(manager1.getEpics(), manager2.getEpics());
+        assertEquals(manager1.getSubtasks(), manager2.getSubtasks());
+    }
+
+    @Test
+    public void shouldSaveHistory() {
         initTasks();
         initEpicsAndSubtasks();
         manager1.getTaskById(1);

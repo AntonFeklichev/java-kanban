@@ -14,8 +14,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -28,11 +28,15 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         loadData();
     }
 
+    public FileBackedTaskManager(){
+        gson = createGson();
+    }
+
     private Gson createGson() {
         return gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter()).create();
     }
 
-    private void loadData() {
+    public void loadData() {
         loadTasks();
         loadEpics();
         loadSubtasks();
@@ -46,9 +50,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             try (Reader reader = new FileReader(path)) {
                 Type type = new TypeToken<Map<Integer, Task>>() {
                 }.getType();
-                Map<Integer, Task> loadedTasks = gson.fromJson(reader, type);
-                idForNewTasks += loadedTasks.keySet().size();
-                setTasks(loadedTasks == null ? new HashMap<>() : loadedTasks);
+                Optional<Map<Integer, Task>> loadedTasks = Optional.ofNullable(gson.fromJson(reader, type));
+                loadedTasks.ifPresent(this::setTasks);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -62,9 +65,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             try (Reader reader = new FileReader(path)) {
                 Type type = new TypeToken<Map<Integer, Epic>>() {
                 }.getType();
-                Map<Integer, Epic> loadedEpics = gson.fromJson(reader, type);
-                idForNewTasks += loadedEpics.keySet().size();
-                setEpics(loadedEpics == null ? new HashMap<>() : loadedEpics);
+                Optional<Map<Integer, Epic>> loadedEpics = Optional.ofNullable(gson.fromJson(reader, type));
+                loadedEpics.ifPresent(this::setEpics);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -78,9 +80,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             try (Reader reader = new FileReader(path)) {
                 Type type = new TypeToken<Map<Integer, Subtask>>() {
                 }.getType();
-                Map<Integer, Subtask> loadedSubtasks = gson.fromJson(reader, type);
-                idForNewTasks += loadedSubtasks.keySet().size();
-                setSubtasks(loadedSubtasks == null ? new HashMap<>() : loadedSubtasks);
+                Optional<Map<Integer, Subtask>> loadedSubtasks = Optional.ofNullable(gson.fromJson(reader, type));
+                loadedSubtasks.ifPresent(this::setSubtasks);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -92,36 +93,43 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         try {
             if (!Files.exists(Path.of(path))) return;
             try (Reader reader = new FileReader(path)) {
-                JsonArray historyArray = JsonParser.parseReader(reader).getAsJsonArray();
-                for (JsonElement element : historyArray) {
-                    if (element.getAsJsonObject().get("type") == null) {
-                        Task def = gson.fromJson(element, Task.class);
-                        getHistoryManager().add(def);
-                    } else {
+                Optional<JsonElement> parsedHistory = Optional.ofNullable(JsonParser.parseReader(reader));
+                parsedHistory.ifPresent(
+                        (history) -> {
+                            if (history.isJsonArray()) {
+                                JsonArray historyArray = history.getAsJsonArray();
+                                for (JsonElement element : historyArray) {
+                                    if (element.getAsJsonObject().get("type") == null) {
+                                        Task def = gson.fromJson(element, Task.class);
+                                        getHistoryManager().add(def);
+                                    } else {
 
-                        switch (element.getAsJsonObject().get("type").getAsString()) {
-                            case "TASK":
-                                Task task = gson.fromJson(element, Task.class);
-                                getHistoryManager().add(task);
-                                break;
-                            case "EPIC":
-                                Epic epic = gson.fromJson(element, Epic.class);
-                                getHistoryManager().add(epic);
-                                break;
-                            case "SUBTASK":
-                                Subtask subtask = gson.fromJson(element, Subtask.class);
-                                getHistoryManager().add(subtask);
-                                break;
-                            default:
-                                Task def = gson.fromJson(element, Task.class);
-                                getHistoryManager().add(def);
-                        }
-                    }
-                }
+                                        switch (element.getAsJsonObject().get("type").getAsString()) {
+                                            case "TASK":
+                                                Task task = gson.fromJson(element, Task.class);
+                                                getHistoryManager().add(task);
+                                                break;
+                                            case "EPIC":
+                                                Epic epic = gson.fromJson(element, Epic.class);
+                                                getHistoryManager().add(epic);
+                                                break;
+                                            case "SUBTASK":
+                                                Subtask subtask = gson.fromJson(element, Subtask.class);
+                                                getHistoryManager().add(subtask);
+                                                break;
+                                            default:
+                                                Task def = gson.fromJson(element, Task.class);
+                                                getHistoryManager().add(def);
+                                        }
+                                    }
+                                }
+                            }
+                        });
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     private void saveData() {

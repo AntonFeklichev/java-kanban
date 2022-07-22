@@ -3,6 +3,7 @@ package manager;
 import manager.exceptions.InvalidIdException;
 import manager.exceptions.NoSuchEpicException;
 import manager.exceptions.NoTimeException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.Epic;
@@ -39,6 +40,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @BeforeEach
+    @AfterEach
     public void cleanUp() {
         manager.removeAll();
     }
@@ -46,8 +48,6 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void addDefaultTasks() {
         manager.addTask(task);
         manager.addEpic(epic);
-        System.out.println(manager.getEpics());
-        System.out.println(subtask);
         manager.addSubtask(subtask);
     }
 
@@ -151,9 +151,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldUpdateTask() {
         manager.addTask(task);
-        Task oldTask = manager.getTaskById(0);
+        Task oldTask = manager.getTaskById(1);
         manager.updateTask(new Task("updated", "desc of task", Status.DONE, oldTask.getId(), now.plusDays(123), defaultDuration));
-        Task updatedTask = manager.getTaskById(0);
+        Task updatedTask = manager.getTaskById(1);
         assertNotEquals(oldTask, updatedTask, "task was not updated");
     }
 

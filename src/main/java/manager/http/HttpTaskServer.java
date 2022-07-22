@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import manager.Managers;
 import manager.TaskManager;
+import manager.http.handlers.EpicHandler;
 import manager.http.handlers.TaskHandler;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class HttpTaskServer {
             manager = Managers.getFileBacked();
             server = HttpServer.create(new InetSocketAddress(port), backlog);
 //            server.createContext("/tasks", new TasksHandler(manager));
+            server.createContext("/tasks/epic", new EpicHandler(manager));
             server.createContext("/tasks/task", new TaskHandler(manager));
         } catch (IOException e) {
             throw new RuntimeException(e);

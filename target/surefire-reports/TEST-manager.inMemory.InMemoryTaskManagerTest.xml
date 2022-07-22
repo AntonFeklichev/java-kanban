@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="manager.inMemory.InMemoryTaskManagerTest" time="0.066" tests="17" errors="7" skipped="0" failures="2">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="manager.inMemory.InMemoryTaskManagerTest" time="0.039" tests="17" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-18.0.1.1.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter13064264759712338827.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-22T22-44-47_456-jvmRun1 surefire3247983059192760252tmp surefire_014007482787895467269tmp"/>
+    <property name="sun.java.command" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter3140841611994394670.jar /Users/boi/Desktop/java-kanban/target/surefire 2022-07-23T15-57-31_920-jvmRun1 surefire17062020089727694671tmp surefire_09654595628957187055tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/boi/Desktop/java-kanban/target/test-classes:/Users/boi/Desktop/java-kanban/target/classes:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.2/junit-jupiter-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/boi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/boi/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.2/junit-jupiter-params-5.8.2.jar:/Users/boi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/Users/boi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/Users/boi/.m2/repository/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar:/Users/boi/.m2/repository/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter13064264759712338827.jar"/>
+    <property name="surefire.real.class.path" value="/Users/boi/Desktop/java-kanban/target/surefire/surefirebooter3140841611994394670.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="18.0.1.1+2-6"/>
@@ -57,67 +57,19 @@
   </properties>
   <testcase name="shouldAddNewEpic" classname="manager.inMemory.InMemoryTaskManagerTest" time="0"/>
   <testcase name="shouldAddNewTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0"/>
-  <testcase name="shouldUpdateEpic" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.024">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.083838+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.083838+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldUpdateTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001"/>
-  <testcase name="shouldRemoveAllEpics" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.119257+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.119257+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldRemoveAllTasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.121532+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.121532+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldRemoveAllSubtasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.123729+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.123729+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldReturnPrioritizedTasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.126318+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.126318+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldRemoveEpicWithItsSubtasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.004">
-    <failure message="Expected manager.exceptions.InvalidIdException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected manager.exceptions.InvalidIdException to be thrown, but nothing was thrown.
-</failure>
-  </testcase>
+  <testcase name="shouldUpdateEpic" classname="manager.inMemory.InMemoryTaskManagerTest" time="0"/>
+  <testcase name="shouldUpdateTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0"/>
+  <testcase name="shouldRemoveAllEpics" classname="manager.inMemory.InMemoryTaskManagerTest" time="0"/>
+  <testcase name="shouldRemoveAllTasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001"/>
+  <testcase name="shouldRemoveAllSubtasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001"/>
+  <testcase name="shouldReturnPrioritizedTasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
+  <testcase name="shouldRemoveEpicWithItsSubtasks" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.004"/>
   <testcase name="shouldUpdateSubtask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.006"/>
-  <testcase name="shouldRemoveTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002">
-    <failure message="Expected manager.exceptions.InvalidIdException to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected manager.exceptions.InvalidIdException to be thrown, but nothing was thrown.
-</failure>
-  </testcase>
-  <testcase name="shouldGenerateAndSetTaskId" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.142470+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.142470+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldThrowNoTimeExceptionWhenAddingTimeIntersectingTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.003"/>
-  <testcase name="shouldThrowNoTimeExceptionWhenAddingDuplicateTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
-  <testcase name="shouldReturnHistoryInCorrectOrder" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001">
-    <error message="не добавлен эпик к которому относится добавляемая подазадача" type="manager.exceptions.NoSuchEpicException">manager.exceptions.NoSuchEpicException: не добавлен эпик к которому относится добавляемая подазадача
-</error>
-    <system-out><![CDATA[{1=Epic{name='epic', desc='desc of epic', id=1, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[]}}
-Subtask{name='subtask', desc='desc of subtask', id=3, status=NEW, type=SUBTASK, startTime=2022-07-23T22:44:48.152440+04:00[Europe/Samara], duration=10, endTime=2022-07-23T22:54:48.152440+04:00[Europe/Samara], epicId=2}
-]]></system-out>
-  </testcase>
-  <testcase name="shouldAddNewSubtask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
+  <testcase name="shouldRemoveTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
+  <testcase name="shouldGenerateAndSetTaskId" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.001"/>
+  <testcase name="shouldThrowNoTimeExceptionWhenAddingTimeIntersectingTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
+  <testcase name="shouldThrowNoTimeExceptionWhenAddingDuplicateTask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.003"/>
+  <testcase name="shouldReturnHistoryInCorrectOrder" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.003"/>
+  <testcase name="shouldAddNewSubtask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.003"/>
   <testcase name="shouldRemoveSubtask" classname="manager.inMemory.InMemoryTaskManagerTest" time="0.002"/>
 </testsuite>
