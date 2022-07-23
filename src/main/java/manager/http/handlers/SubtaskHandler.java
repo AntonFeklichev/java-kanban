@@ -3,6 +3,7 @@ package manager.http.handlers;
 import com.sun.net.httpserver.HttpExchange;
 import manager.TaskManager;
 import tasks.Subtask;
+import tasks.Task;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +62,14 @@ public class SubtaskHandler extends AbstractHandler {
                             manager.removeAllSubtasks();
                             rCode = 202;
                         });
+                break;
+            case "PATCH":
+                try (InputStream is = exchange.getRequestBody()) {
+                    Subtask subtask = gson.fromJson(new String(is.readAllBytes()), Subtask.class);
+                    subtask.setEndTime(subtask.calculateEndTime());
+                    manager.updateSubtask(subtask);
+                    rCode = 204;
+                }
                 break;
         }
         logger.info("response sent " +

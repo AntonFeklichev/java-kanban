@@ -1,6 +1,5 @@
 package manager.http.handlers;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.sun.net.httpserver.HttpExchange;
 import manager.TaskManager;
 import tasks.Task;
@@ -63,12 +62,20 @@ public class TaskHandler extends AbstractHandler {
                             rCode = 202;
                         });
                 break;
+            case "PATCH":
+                try (InputStream is = exchange.getRequestBody()) {
+                    Task task = gson.fromJson(new String(is.readAllBytes()), Task.class);
+                    task.setEndTime(task.calculateEndTime());
+                    manager.updateTask(task);
+                    rCode = 204;
+                }
+                break;
         }
-        logger.info("response sent " +
-                "\nrCode: " + rCode);
         exchange.sendResponseHeaders(rCode, responseLength);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response.getBytes(StandardCharsets.UTF_8));
         }
+        logger.info("response sent " +
+                "\nrCode: " + rCode);
     }
 }

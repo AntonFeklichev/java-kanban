@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import jdk.swing.interop.SwingInterOpUtils;
 import manager.TaskManager;
 import tasks.Epic;
+import tasks.Task;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +62,14 @@ public class EpicHandler extends AbstractHandler {
                             manager.removeAllEpics();
                             rCode = 202;
                         });
+                break;
+            case "PATCH":
+                try (InputStream is = exchange.getRequestBody()) {
+                    Epic epic = gson.fromJson(new String(is.readAllBytes()), Epic.class);
+                    epic.setEndTime(epic.calculateEndTime());
+                    manager.updateEpic(epic);
+                    rCode = 204;
+                }
                 break;
         }
         logger.info("response sent " +

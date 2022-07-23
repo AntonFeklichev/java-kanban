@@ -28,6 +28,10 @@ public class TasksHandler extends AbstractHandler{
                 response = gson.toJson(manager.getTasksOfAllTypes());
                 rCode = 200;
                 break;
+            case "DELETE":
+                manager.removeAll();
+                rCode = 202;
+                break;
         }
         logger.info("response sent " +
                 "\nrCode: " + rCode);
