@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import manager.Managers;
 import manager.TaskManager;
-import manager.http.handlers.EpicHandler;
-import manager.http.handlers.SubtaskHandler;
-import manager.http.handlers.TaskHandler;
-import manager.http.handlers.TasksHandler;
+import manager.http.handlers.*;
 import tasks.Subtask;
 
 import java.io.IOException;
@@ -30,6 +27,7 @@ public class HttpTaskServer {
             server.createContext("/tasks/epic", new EpicHandler(manager));
             server.createContext("/tasks/task", new TaskHandler(manager));
             server.createContext("/tasks/subtask", new SubtaskHandler(manager));
+            server.createContext("/tasks/history", new HistoryHandler(manager));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
