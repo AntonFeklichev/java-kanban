@@ -101,7 +101,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task task) {
-        task.calculateEndTime();
         checkTimeIntersection(task);
         generateAndSetTaskId(task);
         tasks.put(task.getId(), task);
