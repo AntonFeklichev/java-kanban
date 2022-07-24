@@ -37,7 +37,7 @@ public class HttpTaskServer {
         LOGGER.info("server started");
     }
 
-    public void stop(int delay){
+    public void stop(int delay) {
         server.stop(delay);
         LOGGER.info("server stopped");
     }

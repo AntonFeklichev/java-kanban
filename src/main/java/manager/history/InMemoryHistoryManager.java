@@ -69,7 +69,7 @@ public class InMemoryHistoryManager implements HistoryManager {
                 final Node<E> next = nodeToRemove.getNext();
                 final Node<E> prev = nodeToRemove.getPrev();
 
-                if (next == null && prev == null){
+                if (next == null && prev == null) {
                     head = null;
                     tail = null;
                     return;
@@ -91,9 +91,10 @@ public class InMemoryHistoryManager implements HistoryManager {
                 size--;
             }
         }
-        public void clear(){
+
+        public void clear() {
             Node<E> head = this.head;
-            while (head != null){
+            while (head != null) {
                 removeNode(head);
                 head = this.head;
             }

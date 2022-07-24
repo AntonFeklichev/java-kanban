@@ -2,25 +2,25 @@ package manager.http;
 
 import manager.fileBacked.FileBackedTaskManagerTest;
 import manager.http.kv.KVServer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
 
 public class HttpTaskManagerTest extends FileBackedTaskManagerTest {
-    private KVServer kvServer;
-    private HttpTaskServer server;
+    private static KVServer kvServer;
+    private static HttpTaskServer server;
 
-    @BeforeEach
-    public void startServers() throws IOException {
-        kvServer = new KVServer();
-        server = new HttpTaskServer("http://localhost:8078", 8080, 0);
+    @BeforeAll
+    public static void startServers() throws IOException {
+        kvServer = new KVServer("localhost", 8078, 0);
         kvServer.start();
+        server = new HttpTaskServer("http://localhost:8078", 8080, 0);
         server.start();
     }
 
-    @AfterEach
-    public void stopServers() {
+    @AfterAll
+    public static void stopServers() {
         kvServer.stop(10);
         server.stop(10);
     }

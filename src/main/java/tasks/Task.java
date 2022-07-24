@@ -2,7 +2,6 @@ package tasks;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -10,6 +9,7 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 public class Task implements Comparable<Task> {
+    private static final TaskTypes TYPE = TaskTypes.TASK;
     private String name;
     private String desc;
     private int id;
@@ -18,7 +18,6 @@ public class Task implements Comparable<Task> {
     private ZonedDateTime startTime;
     private long duration;
     private ZonedDateTime endTime;
-    private static final TaskTypes TYPE = TaskTypes.TASK;
 
     public Task(ZonedDateTime startTime, long duration) {
         this.startTime = startTime;
@@ -27,7 +26,7 @@ public class Task implements Comparable<Task> {
         endTime = calculateEndTime();
     }
 
-    public Task(){
+    public Task() {
         setType(TaskTypes.TASK);
     }
 

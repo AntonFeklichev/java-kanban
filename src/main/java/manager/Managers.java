@@ -11,11 +11,11 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-    public static TaskManager getFileBacked() {
-        return new FileBackedTaskManager("save");
+    public static TaskManager getFileBacked(String saveDir) {
+        return new FileBackedTaskManager();
     }
 
-    public static TaskManager getHttp(String url){
+    public static TaskManager getHttp(String url) {
         return new HttpTaskManager(url);
     }
 

@@ -121,8 +121,9 @@ public class HttpTaskManager extends FileBackedTaskManager {
                     }
                 });
     }
+
     @Override
-    protected void saveHistory(){
+    protected void saveHistory() {
         String jsonHistory = gson.toJson(getHistory());
         kvClient.put("history", jsonHistory);
     }

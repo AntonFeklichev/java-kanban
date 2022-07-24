@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 
-public class TasksHandler extends AbstractHandler{
+public class TasksHandler extends AbstractHandler {
     public TasksHandler(TaskManager manager) {
         super(manager);
     }
@@ -23,7 +23,7 @@ public class TasksHandler extends AbstractHandler{
         logger.info("handling request\n" +
                 "method: " + method +
                 "\npath: " + path);
-        switch (method){
+        switch (method) {
             case "GET":
                 response = gson.toJson(manager.getTasksOfAllTypes());
                 rCode = 200;

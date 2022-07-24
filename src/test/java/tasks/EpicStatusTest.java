@@ -2,13 +2,11 @@ package tasks;
 
 import manager.Managers;
 import manager.TaskManager;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +23,7 @@ public class EpicStatusTest {
     public void init() {
         manager = Managers.getDefault();
         now = ZonedDateTime.now();
-
+        defaultDuration = 10;
         epic = new Epic();
         manager.addEpic(epic);
         subtask1 = new Subtask(Status.NEW, epic, now, defaultDuration);
@@ -37,18 +35,18 @@ public class EpicStatusTest {
     }
 
     @Test
-    public void shouldReturnNewWhenNoSubtasks(){
+    public void shouldReturnNewWhenNoSubtasks() {
         epic.setSubtasks(Collections.emptyList());
         assertEquals(Status.NEW, epic.calculateStatus());
     }
 
     @Test
-    public void shouldReturnStatusNewWhenAllSubtasksNew(){
+    public void shouldReturnStatusNewWhenAllSubtasksNew() {
         assertEquals(Status.NEW, epic.calculateStatus());
     }
 
     @Test
-    public void shouldReturnDoneWhenAllSubtasksDone(){
+    public void shouldReturnDoneWhenAllSubtasksDone() {
         subtask1.setStatus(Status.DONE);
         subtask2.setStatus(Status.DONE);
         subtask3.setStatus(Status.DONE);
@@ -56,13 +54,13 @@ public class EpicStatusTest {
     }
 
     @Test
-    public void shouldReturnInProgressWhenSubtasksNewAndDone(){
+    public void shouldReturnInProgressWhenSubtasksNewAndDone() {
         subtask3.setStatus(Status.DONE);
         assertEquals(Status.IN_PROGRESS, epic.calculateStatus());
     }
 
     @Test
-    public void shouldReturnInProgressWhenAtLeastOneInProgress(){
+    public void shouldReturnInProgressWhenAtLeastOneInProgress() {
         subtask3.setStatus(Status.IN_PROGRESS);
         assertEquals(Status.IN_PROGRESS, epic.calculateStatus());
     }

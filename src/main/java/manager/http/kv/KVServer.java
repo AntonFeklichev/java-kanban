@@ -17,15 +17,23 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class KVServer {
 
-    Logger logger = Logger.getLogger("kv server");
     public static final int PORT = 8078;
     private final String apiToken;
     private final HttpServer server;
     private final Map<String, String> data = new HashMap<>();
+    Logger logger = Logger.getLogger("kv server");
 
     public KVServer() throws IOException {
         apiToken = generateApiToken();
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
+        server.createContext("/register", this::register);
+        server.createContext("/save", this::save);
+        server.createContext("/load", this::load);
+    }
+
+    public KVServer(String hostname, int port, int backlog) throws IOException {
+        apiToken = generateApiToken();
+        server = HttpServer.create(new InetSocketAddress(hostname, port), 0);
         server.createContext("/register", this::register);
         server.createContext("/save", this::save);
         server.createContext("/load", this::load);

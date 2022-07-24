@@ -32,7 +32,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void setTasks(Map<Integer, Task> tasks) {
-        for (Task task : tasks.values()){
+        for (Task task : tasks.values()) {
             addTask(task);
         }
         this.tasks = tasks;
@@ -259,7 +259,7 @@ public class InMemoryTaskManager implements TaskManager {
         getHistoryManager().removeAll();
     }
 
-    public void setHistory(){
+    public void setHistory() {
 
     }
 }

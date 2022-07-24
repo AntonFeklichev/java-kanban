@@ -28,7 +28,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         loadData();
     }
 
-    public FileBackedTaskManager(){
+    public FileBackedTaskManager() {
         gson = createGson();
     }
 

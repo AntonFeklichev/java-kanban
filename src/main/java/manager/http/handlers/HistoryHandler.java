@@ -23,7 +23,7 @@ public class HistoryHandler extends AbstractHandler {
         logger.info("handling request\n" +
                 "method: " + method +
                 "\npath: " + path);
-        switch (method){
+        switch (method) {
             case "GET":
                 response = gson.toJson(manager.getHistory());
                 rCode = 200;

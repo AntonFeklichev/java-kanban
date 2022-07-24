@@ -8,8 +8,8 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Subtask extends Task {
 
-    private int epicId;
     private static final TaskTypes TYPE = TaskTypes.SUBTASK;
+    private int epicId;
 
 
     public Subtask(ZonedDateTime startTime, long duration) {
@@ -39,7 +39,7 @@ public class Subtask extends Task {
         setEpicId(epic.getId());
     }
 
-    public Subtask(Status status, Epic epic){
+    public Subtask(Status status, Epic epic) {
         setStatus(status);
         setEpicId(epic.getId());
     }

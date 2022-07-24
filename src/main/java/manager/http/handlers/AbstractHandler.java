@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 public abstract class AbstractHandler implements HttpHandler {
