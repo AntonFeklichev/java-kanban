@@ -258,4 +258,8 @@ public class InMemoryTaskManager implements TaskManager {
         removeAllSubtasks();
         getHistoryManager().removeAll();
     }
+
+    public void setHistory(){
+
+    }
 }
