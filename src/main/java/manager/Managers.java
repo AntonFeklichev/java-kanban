@@ -3,6 +3,7 @@ package manager;
 import manager.fileBacked.FileBackedTaskManager;
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
+import manager.http.HttpTaskManager;
 import manager.inMemory.InMemoryTaskManager;
 
 public class Managers {
@@ -12,6 +13,10 @@ public class Managers {
 
     public static TaskManager getFileBacked() {
         return new FileBackedTaskManager("save");
+    }
+
+    public static TaskManager getHttp(String url){
+        return new HttpTaskManager(url);
     }
 
     public static HistoryManager getDefaultHistory() {

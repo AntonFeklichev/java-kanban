@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private Gson gson;
+    protected Gson gson;
     private String saveDir = "save";
 
     public FileBackedTaskManager(String saveDir) {
@@ -43,7 +43,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         loadHistory();
     }
 
-    private void loadTasks() {
+    protected void loadTasks() {
         String path = saveDir + "/tasks.json";
         try {
             if (!Files.exists(Path.of(path))) return;
@@ -58,7 +58,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void loadEpics() {
+    protected void loadEpics() {
         String path = saveDir + "/epics.json";
         try {
             if (!Files.exists(Path.of(path))) return;
@@ -73,7 +73,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void loadSubtasks() {
+    protected void loadSubtasks() {
         String path = saveDir + "/subtasks.json";
         try {
             if (!Files.exists(Path.of(path))) return;
@@ -88,7 +88,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void loadHistory() {
+    protected void loadHistory() {
         String path = saveDir + "/history.json";
         try {
             if (!Files.exists(Path.of(path))) return;
@@ -132,14 +132,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     }
 
-    private void saveData() {
+    public void saveData() {
         saveTasks();
         saveEpics();
         saveSubtasks();
         saveHistory();
     }
 
-    private void saveTasks() {
+    protected void saveTasks() {
         String path = saveDir + "/tasks.json";
         try {
             if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
@@ -152,7 +152,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void saveEpics() {
+    protected void saveEpics() {
         String path = saveDir + "/epics.json";
         try {
             if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
@@ -165,7 +165,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    private void saveSubtasks() {
+    protected void saveSubtasks() {
         String path = saveDir + "/subtasks.json";
         try {
             if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));
@@ -178,7 +178,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    public void saveHistory() {
+    protected void saveHistory() {
         String path = saveDir + "/history.json";
         try {
             if (!Files.exists(Path.of(path))) Files.createFile(Path.of(path));

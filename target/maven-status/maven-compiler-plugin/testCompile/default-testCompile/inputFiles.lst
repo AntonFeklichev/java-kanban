@@ -1,0 +1,7 @@
+/Users/boi/Desktop/java-kanban/src/test/java/tasks/EpicStatusTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/TimeTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/TaskManagerTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/history/HistoryTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/fileBacked/FileBackedTaskManagerTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/inMemory/InMemoryTaskManagerTest.java
+/Users/boi/Desktop/java-kanban/src/test/java/manager/http/HttpTaskManagerTest.java

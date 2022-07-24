@@ -1,6 +1,5 @@
 import manager.http.HttpTaskServer;
 import manager.http.kv.KVServer;
-import manager.http.kv.KVTaskClient;
 
 import java.io.IOException;
 
@@ -10,10 +9,10 @@ public class Go {
 //                .setPrettyPrinting()
 //                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter())
 //                .create();
-        HttpTaskServer server = new HttpTaskServer(8080, 0);
-        server.start();
         KVServer kvServer = new KVServer();
         kvServer.start();
-        KVTaskClient client = new KVTaskClient("http://localhost:8078");
+        HttpTaskServer server = new HttpTaskServer(8080, 0);
+        server.start();
+
     }
 }

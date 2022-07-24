@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpServer;
 import manager.Managers;
 import manager.TaskManager;
 import manager.http.handlers.*;
-import tasks.Subtask;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,9 +18,9 @@ public class HttpTaskServer {
     private HttpServer server;
 
 
-    public HttpTaskServer(int port, int backlog) {
+    public HttpTaskServer(String url, int port, int backlog) {
         try {
-            manager = Managers.getFileBacked();
+            manager = Managers.getHttp(url);
             server = HttpServer.create(new InetSocketAddress(port), backlog);
             server.createContext("/tasks/", new TasksHandler(manager));
             server.createContext("/tasks/epic", new EpicHandler(manager));
@@ -36,5 +35,10 @@ public class HttpTaskServer {
     public void start() {
         server.start();
         LOGGER.info("server started");
+    }
+
+    public void stop(int delay){
+        server.stop(delay);
+        LOGGER.info("server stopped");
     }
 }
