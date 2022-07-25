@@ -21,7 +21,7 @@ public class EpicStatusTest {
 
     @BeforeEach
     public void init() {
-        manager = Managers.getDefault();
+        manager = Managers.getInMemory();
         now = ZonedDateTime.now();
         defaultDuration = 10;
         epic = new Epic();

@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: manager.http.HttpTaskManagerTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.446 s <<< FAILURE! - in manager.http.HttpTaskManagerTest
-shouldSaveHistory  Time elapsed: 0.439 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: saved and loaded histories do not match ==> expected: <[Task{name='do homework', desc='do math', id=1, status=NEW, type=TASK, startTime=2022-07-24T13:59:01.282321+04:00[Europe/Samara], duration=20, endTime=2022-07-24T14:19:01.282321+04:00[Europe/Samara]}, Subtask{name='go to surgeon', desc='get a surgeon consultation', id=5, status=NEW, type=SUBTASK, startTime=2022-07-26T13:59:01.282321+04:00[Europe/Samara], duration=20, endTime=2022-07-26T14:19:01.282321+04:00[Europe/Samara], epicId=3}, Epic{name='take care about health', desc='visit doctors', id=3, status=NEW, type=EPIC, startTime=null, duration=0, endTime=null, subtasks=[Subtask{name='go to surgeon', desc='get a surgeon consultation', id=5, status=NEW, type=SUBTASK, startTime=2022-07-26T13:59:01.282321+04:00[Europe/Samara], duration=20, endTime=2022-07-26T14:19:01.282321+04:00[Europe/Samara], epicId=3}, Subtask{name='go to dermatologist', desc='get a dermatologist consultation', id=6, status=NEW, type=SUBTASK, startTime=2022-07-27T13:59:01.282321+04:00[Europe/Samara], duration=20, endTime=2022-07-27T14:19:01.282321+04:00[Europe/Samara], epicId=3}]}]> but was: <[]>
-

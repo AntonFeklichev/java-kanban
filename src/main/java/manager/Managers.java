@@ -1,13 +1,13 @@
 package manager;
 
-import manager.fileBacked.FileBackedTaskManager;
+import manager.file_backed.FileBackedTaskManager;
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
 import manager.http.HttpTaskManager;
-import manager.inMemory.InMemoryTaskManager;
+import manager.in_memory.InMemoryTaskManager;
 
 public class Managers {
-    public static TaskManager getDefault() {
+    public static TaskManager getInMemory() {
         return new InMemoryTaskManager();
     }
 

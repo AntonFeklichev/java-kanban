@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import manager.fileBacked.FileBackedTaskManager;
+import manager.file_backed.FileBackedTaskManager;
 import manager.http.kv.KVTaskClient;
 import tasks.Epic;
 import tasks.Subtask;
@@ -17,7 +17,6 @@ import java.util.Optional;
 public class HttpTaskManager extends FileBackedTaskManager {
 
     private final KVTaskClient kvClient;
-    private String url;
 
 
     public HttpTaskManager(String url) {

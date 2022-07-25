@@ -7,6 +7,7 @@ import manager.TaskManager;
 import manager.http.handlers.*;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
@@ -27,8 +28,10 @@ public class HttpTaskServer {
             server.createContext("/tasks/task", new TaskHandler(manager));
             server.createContext("/tasks/subtask", new SubtaskHandler(manager));
             server.createContext("/tasks/history", new HistoryHandler(manager));
+        } catch (BindException e) {
+            throw new RuntimeException("cannot bind to the requested address or the server is already bound");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("cannot create server");
         }
     }
 

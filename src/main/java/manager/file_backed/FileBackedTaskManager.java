@@ -1,10 +1,10 @@
-package manager.fileBacked;
+package manager.file_backed;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import gsonTypeAdapters.ZonedDateTimeAdapter;
+import gson_type_adapters.ZonedDateTimeAdapter;
 import manager.exceptions.ManagerSaveException;
-import manager.inMemory.InMemoryTaskManager;
+import manager.in_memory.InMemoryTaskManager;
 import tasks.Epic;
 import tasks.Subtask;
 import tasks.Task;
